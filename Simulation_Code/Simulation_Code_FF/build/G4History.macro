@@ -1,0 +1,73 @@
+/run/verbose 0
+/control/execute gps.in
+/gps/ene/type User
+/gps/hist/type energy
+/gps/particle gamma
+/gps/pos/type Beam
+/gps/pos/shape Circle
+/gps/pos/sigma_r 10 um
+/gps/pos/centre 0 0. -85 cm
+/gps/ang/type iso
+/gps/ang/maxtheta 0.02 rad
+/gps/ang/rot1 -1 0 0
+/control/execute detmask_config.in
+/Pepi/det/setBidimensional true
+/Pepi/det/setSourcePosZ -85 cm
+/Pepi/det/setSrcObjDistance 60 cm
+/Pepi/det/setObjectDetDistance 120 cm
+/Pepi/det/setMaskThickness 100 um
+/Pepi/det/setM2Pitch 110 um
+/Pepi/det/setM2Aperture 31.6 um
+/Pepi/det/setAcquisitionType conventional
+/Pepi/det/setDetType 1COL
+/Pepi/det/setThreshold1 9 keV
+/Pepi/det/setThreshold2 20 keV
+/Pepi/cont/loadConfig geometry_config.in
+/Pepi/cont/setBaseName image_
+/run/initialize
+/control/execute vis.mac
+/vis/open OGL 720x900-0+0
+/vis/sceneHandler/create OGL
+/vis/viewer/create ! ! 720x900-0+0
+/vis/viewer/refresh
+/vis/viewer/set/autoRefresh false
+/vis/verbose errors
+/vis/drawVolume
+/vis/scene/create
+/vis/scene/add/volume world -1 -1 none m 0 0 0 0 0 0
+/vis/sceneHandler/attach
+/vis/viewer/set/targetPoint 0.0 0.0 -10 cm
+/vis/viewer/set/viewpointThetaPhi -70. -15.
+/vis/viewer/zoom 6.
+/vis/scene/add/trajectories smooth
+/tracking/storeTrajectory 2
+/vis/scene/notifyHandlers
+/vis/modeling/trajectories/create/drawByCharge
+/vis/modeling/trajectories/drawByCharge-0/default/setDrawStepPts true
+/vis/scene/notifyHandlers scene-0
+/vis/modeling/trajectories/drawByCharge-0/default/setStepPtsSize 1
+/vis/scene/notifyHandlers scene-0
+/vis/modeling/trajectories/create/drawByParticleID
+/vis/modeling/trajectories/drawByParticleID-0/default/setDrawStepPts true
+/vis/scene/notifyHandlers scene-0
+/vis/scene/endOfEventAction accumulate
+/vis/viewer/set/autoRefresh true
+/vis/viewer/refresh
+/vis/verbose warnings
+/control/execute scorers.mac
+/score/create/boxMesh Mesh1
+/score/mesh/boxSize 4 13 4 mm
+/score/mesh/translate/xyz 0 0 -36 cm
+/score/mesh/nBin 1 1 1 // x y z
+/score/quantity/doseDeposit dose
+/score/quantity/passageCellFlux passageCellFlux
+/score/filter/particle protonFilter proton
+/score/close
+/score/create/boxMesh Mesh2
+/score/mesh/boxSize 4 13 4 mm
+/score/mesh/translate/xyz 0 0 -36 cm
+/score/mesh/nBin 5 80 5 // x y z
+/score/quantity/doseDeposit dose
+/score/quantity/passageCellFlux protonCellFlux
+/score/filter/particle protonFilter proton
+/score/close
