@@ -289,6 +289,7 @@ void PepiDetectorConstruction::DefineMaterials()
   G4Material* Gold = nist->FindOrBuildMaterial("G4_Au");
   G4Material* Cellulose     = nist->FindOrBuildMaterial("G4_CELLULOSE_CELLOPHANE");
   G4Material* AluminumDioxide = nist->FindOrBuildMaterial("G4_ALUMINUM_OXIDE");
+  G4Material* Galactic = nist->FindOrBuildMaterial("G4_Galactic");
   
   
    // ========================================
@@ -695,7 +696,7 @@ void PepiDetectorConstruction::DefineMaterials()
   //           DEFAULT MATERIALS
   // ========================================
 
-  fWorldMaterial    = Air;// Vacuum1;
+  fWorldMaterial    = Galactic;
   fIonCMaterial     = Air;// Vacuum1;
   //fDetectorMaterial = CdTe;
   fDetectorMaterial = Silicon;
