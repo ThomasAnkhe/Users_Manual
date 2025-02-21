@@ -1059,7 +1059,6 @@ fMuscleLogical = new G4LogicalVolume(fMuscleSolid, fMuscleMaterial, "CubeLV");
 G4ThreeVector objectPositionCube = G4ThreeVector(0*mm, 0, fSourcePosZ+fSrcObjDistance+2.2*cm);
 fMusclePhysical = new G4PVPlacement(rotMat, objectPositionCube, fMuscleLogical, "Cube", fWorldLogical, false, 0, fCheckOverlaps);
 
-// Creación de 10 esferas con diferentes tamaños y posiciones
 G4double sphereRadii[10] = {100*um, 200*um, 300*um, 400*um, 500*um, 600*um, 700*um, 800*um, 900*um, 1000*um};
 G4ThreeVector spherePositions[10] = {
     G4ThreeVector(0, 0, 0),
