@@ -11,7 +11,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 Npixeles=256
-NI=1 #Número de imágenes RAW
+NI=4 #Número de imágenes RAW
 NF=1 #Número de imágenes FF
 NThr=2
 #nameP="Simulaciones"
@@ -24,26 +24,28 @@ NThr=2
 #nameS="PData"
 #nameFF=nameP+"/"+nameI+"/"+nameV+"/"+nameF+"/"+nameD+"/"+nameH+Step
 nameFF="TomaFF"
+path = "C:\\Users\\Thomas\\XPCi_Project_Code\\Image_Reading\\RAWs\\Frame" # Directorio donde están los Raw.
 
-def ImagenesR(name,Npixeles):
-    I=[]
-    for k in range(0,len(name),Npixeles*Npixeles):
-        Im=np.zeros((Npixeles,Npixeles))
+
+def ImagenesR(name, Npixeles):
+    I = []
+    for k in range(0, len(name), Npixeles*Npixeles):
+        Im = np.zeros((Npixeles,Npixeles))
         for j in range(Npixeles):
             for i in range(Npixeles):
-                Im[j,i]=name[i+Npixeles*j+k]
+                Im[j,i]=name[i + Npixeles*j + k]
         I.append(Im)
     return I
 
-def Imagenes(name,Npixeles,NI):
-    D=[]
-    for i in range(1,NI+1):
-        Raw = np.fromfile(name+".raw", dtype='float32')
-        K=ImagenesR(Raw,Npixeles)
+def Imagenes(name, Npixeles, NRaw):
+    D = []
+    for i in range(1, NRaw + 1):
+        Raw = np.fromfile(name + "{}".format(i) + ".raw", dtype='float32')
+        K = ImagenesR(Raw, Npixeles)
         D.append(K)
     return D
 
-def ImagenesA(name,Npixeles,NI,NThr):
+def ImagenesA(name, Npixeles, NI, NThr):
     A=[]
     for i in range(NThr):
         Mean=np.zeros((Npixeles, Npixeles))
@@ -65,8 +67,8 @@ def Aver(name,X1,X2,Step):
         P[i,X1:X2]=(1/2)*(P[i,X1-Step:X2-Step]+P[i,X1+Step:X2+Step])
     return P
 
-FF=Imagenes(nameFF,Npixeles,NF)
-FFA=ImagenesA(FF,Npixeles,NF,NThr)
+FF = Imagenes(path, Npixeles, NF)
+FFA = ImagenesA(FF,Npixeles,NF,NThr)
 
 k=1
 fig, ax = plt.subplots(figsize=(7, 7))

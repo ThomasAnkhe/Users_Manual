@@ -1159,6 +1159,143 @@ fMicroSpherePhysical3 = new G4PVPlacement(0,
                                            0,
                                            fCheckOverlaps);
 
+                                           fMicroSphereSolid4 = new G4Sphere("Sphere4",
+                                            0,
+                                            1000*um,
+                                            0,
+                                            2*pi,
+                                            0,
+                                            pi);
+          
+fMicroSphereLogical4 = new G4LogicalVolume(fMicroSphereSolid4, fMicroSphereMaterial, "SphereLV4");
+
+G4ThreeVector objectPositionSphere4 = G4ThreeVector(3.12*mm, -2.89*mm, 0);
+
+fMicroSpherePhysical4 = new G4PVPlacement(0,
+                                          objectPositionSphere4,
+                                          fMicroSphereLogical4,
+                                          "Sphere4",
+                                          fMuscleLogical,
+                                          false,
+                                          0,
+                                          fCheckOverlaps);
+
+// ------------------------------------------------------
+
+fMicroSphereSolid5 = new G4Sphere("Sphere5",
+                                  0,
+                                  750*um,
+                                  0,
+                                  2*pi,
+                                  0,
+                                  pi);
+
+fMicroSphereLogical5 = new G4LogicalVolume(fMicroSphereSolid5, fMicroSphereMaterial, "SphereLV5");
+
+G4ThreeVector objectPositionSphere5 = G4ThreeVector(-4.76*mm, 1.67*mm, 0);
+
+fMicroSpherePhysical5 = new G4PVPlacement(0,
+                                          objectPositionSphere5,
+                                          fMicroSphereLogical5,
+                                          "Sphere5",
+                                          fMuscleLogical,
+                                          false,
+                                          0,
+                                          fCheckOverlaps);
+
+// ------------------------------------------------------
+
+fMicroSphereSolid6 = new G4Sphere("Sphere6",
+                                  0,
+                                  500*um,
+                                  0,
+                                  2*pi,
+                                  0,
+                                  pi);
+
+fMicroSphereLogical6 = new G4LogicalVolume(fMicroSphereSolid6, fMicroSphereMaterial, "SphereLV6");
+
+G4ThreeVector objectPositionSphere6 = G4ThreeVector(2.54*mm, -3.89*mm, 0);
+
+fMicroSpherePhysical6 = new G4PVPlacement(0,
+                                          objectPositionSphere6,
+                                          fMicroSphereLogical6,
+                                          "Sphere6",
+                                          fMuscleLogical,
+                                          false,
+                                          0,
+                                          fCheckOverlaps);
+
+// ------------------------------------------------------
+
+fMicroSphereSolid7 = new G4Sphere("Sphere7",
+                                  0,
+                                  250*um,
+                                  0,
+                                  2*pi,
+                                  0,
+                                  pi);
+
+fMicroSphereLogical7 = new G4LogicalVolume(fMicroSphereSolid7, fMicroSphereMaterial, "SphereLV7");
+
+G4ThreeVector objectPositionSphere7 = G4ThreeVector(-1.32*mm, 4.12*mm, 0);
+
+fMicroSpherePhysical7 = new G4PVPlacement(0,
+                                          objectPositionSphere7,
+                                          fMicroSphereLogical7,
+                                          "Sphere7",
+                                          fMuscleLogical,
+                                          false,
+                                          0,
+                                          fCheckOverlaps);
+
+// ------------------------------------------------------
+
+fMicroSphereSolid8 = new G4Sphere("Sphere8",
+                                  0,
+                                  1000*um,
+                                  0,
+                                  2*pi,
+                                  0,
+                                  pi);
+
+fMicroSphereLogical8 = new G4LogicalVolume(fMicroSphereSolid8, fMicroSphereMaterial, "SphereLV8");
+
+G4ThreeVector objectPositionSphere8 = G4ThreeVector(4.67*mm, -1.78*mm, 0);
+
+fMicroSpherePhysical8 = new G4PVPlacement(0,
+                                          objectPositionSphere8,
+                                          fMicroSphereLogical8,
+                                          "Sphere8",
+                                          fMuscleLogical,
+                                          false,
+                                          0,
+                                          fCheckOverlaps);
+
+// ------------------------------------------------------
+
+fMicroSphereSolid9 = new G4Sphere("Sphere9",
+                                  0,
+                                  750*um,
+                                  0,
+                                  2*pi,
+                                  0,
+                                  pi);
+
+fMicroSphereLogical9 = new G4LogicalVolume(fMicroSphereSolid9, fMicroSphereMaterial, "SphereLV9");
+
+G4ThreeVector objectPositionSphere9 = G4ThreeVector(-3.42*mm, 2.76*mm, 0);
+
+fMicroSpherePhysical9 = new G4PVPlacement(0,
+                                          objectPositionSphere9,
+                                          fMicroSphereLogical9,
+                                          "Sphere9",
+                                          fMuscleLogical,
+                                          false,
+                                          0,
+                                          fCheckOverlaps);
+
+
 // MODIFIED FINISH
 
 /*
@@ -1490,6 +1627,40 @@ fSphere2Logical = new G4LogicalVolume(fSphere2Solid,
   sphereVisAtt3->SetForceSolid(true);
   fMicroSphereLogical3->SetVisAttributes(sphereVisAtt3);
   
+  G4VisAttributes* sphereVisAtt4 = new G4VisAttributes(G4Colour(0.5, 0.5, 1.0, 1.0));
+  sphereVisAtt4->SetForceSolid(true);
+  fMicroSphereLogical4->SetVisAttributes(sphereVisAtt4);
+  
+  // ------------------------------------------------------
+  
+  G4VisAttributes* sphereVisAtt5 = new G4VisAttributes(G4Colour(0.5, 0.5, 1.0, 1.0));
+  sphereVisAtt5->SetForceSolid(true);
+  fMicroSphereLogical5->SetVisAttributes(sphereVisAtt5);
+  
+  // ------------------------------------------------------
+  
+  G4VisAttributes* sphereVisAtt6 = new G4VisAttributes(G4Colour(0.5, 0.5, 1.0, 1.0));
+  sphereVisAtt6->SetForceSolid(true);
+  fMicroSphereLogical6->SetVisAttributes(sphereVisAtt6);
+  
+  // ------------------------------------------------------
+  
+  G4VisAttributes* sphereVisAtt7 = new G4VisAttributes(G4Colour(0.5, 0.5, 1.0, 1.0));
+  sphereVisAtt7->SetForceSolid(true);
+  fMicroSphereLogical7->SetVisAttributes(sphereVisAtt7);
+  
+  // ------------------------------------------------------
+  
+  G4VisAttributes* sphereVisAtt8 = new G4VisAttributes(G4Colour(0.5, 0.5, 1.0, 1.0));
+  sphereVisAtt8->SetForceSolid(true);
+  fMicroSphereLogical8->SetVisAttributes(sphereVisAtt8);
+  
+  // ------------------------------------------------------
+  
+  G4VisAttributes* sphereVisAtt9 = new G4VisAttributes(G4Colour(0.5, 0.5, 1.0, 1.0));
+  sphereVisAtt9->SetForceSolid(true);
+  fMicroSphereLogical9->SetVisAttributes(sphereVisAtt9);
+
   // MODIFIED FINISH
 
 /*
