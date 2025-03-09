@@ -1084,9 +1084,9 @@ fMuscleLogical = new G4LogicalVolume(fMuscleSolid, fMuscleMaterial, "CubeLV");
 G4ThreeVector objectPositionCube = G4ThreeVector(0*mm, 0, fSourcePosZ+fSrcObjDistance);
 fMusclePhysical = new G4PVPlacement(rotMat, objectPositionCube, fMuscleLogical, "Cube", fWorldLogical, false, 0, fCheckOverlaps);
 
-fWaxInsertSolid = new G4Box("Wax", 5*cm, 5*cm, 3*mm);
+fWaxInsertSolid = new G4Box("Wax", 5*cm, 5*cm, 7.25*mm);
 fWaxInsertLogical = new G4LogicalVolume(fWaxInsertSolid, fWaxInsertMaterial, "WaxLV");
-G4ThreeVector objectPositionWax = G4ThreeVector(0*mm, 0, 3.4*cm);
+G4ThreeVector objectPositionWax = G4ThreeVector(0*mm, 0, 3.375*cm);
 fWaxInsertPhysical = new G4PVPlacement(rotMat, objectPositionWax, fWaxInsertLogical, "Wax", fMuscleLogical, false, 0, fCheckOverlaps);
 
 //Microcalcifications
