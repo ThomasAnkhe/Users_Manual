@@ -1054,7 +1054,7 @@ for(G4int i = 0; i < Numb_speck2; i ++)
   // ========================================
 
   // MODIFIED START
-fMuscleSolid = new G4Box("Cube", 10.8*mm, 10.2*mm, 4.4*cm);
+fMuscleSolid = new G4Box("Cube", 10.8*mm, 10.2*mm, 1*cm);
 fMuscleLogical = new G4LogicalVolume(fMuscleSolid, fMuscleMaterial, "CubeLV");
 G4ThreeVector objectPositionCube = G4ThreeVector(0*mm, 0, fSourcePosZ+fSrcObjDistance+2.2*cm);
 fMusclePhysical = new G4PVPlacement(rotMat, objectPositionCube, fMuscleLogical, "Cube", fWorldLogical, false, 0, fCheckOverlaps);
