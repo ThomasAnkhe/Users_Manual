@@ -307,35 +307,16 @@ void PepiDetectorConstruction::DefineMaterials()
   G4Material* Silicon       = nist->FindOrBuildMaterial("G4_Si");
   G4Material* Graphite      = nist->FindOrBuildMaterial("G4_GRAPHITE");
   G4Material* Gold = nist->FindOrBuildMaterial("G4_Au");
-  G4Material* Cellulose     = nist->FindOrBuildMaterial("G4_CELLULOSE_CELLOPHANE");
-  G4Material* AluminumDioxide = nist->FindOrBuildMaterial("G4_ALUMINUM_OXIDE");
-  G4Material* Galactic = nist->FindOrBuildMaterial("G4_Galactic");
-  G4Material* Wax = nist->FindOrBuildMaterial("G4_M3_WAX");
-  
-  
-   // ========================================
-  //            SANDPAPER
-  // ========================================
-  
-  G4double fractionmass, density1;
-  G4String nameSand;
-  G4int ncomponents;
-  
-  density1 = 3.21*g/cm3;
-  G4Material* SiC = new G4Material(nameSand="SandP",density1,ncomponents=2);
-  SiC ->AddMaterial(Silicon, fractionmass=50*perCent);
-  SiC ->AddMaterial(Graphite, fractionmass=50*perCent);
-  
-  
+  G4Material* Vacuum1 = new G4Material("VACUUM1", 1., 1.01*g/mole, universe_mean_density);
   // ========================================
   //              ADDITIONAL MATERIALS
   // ========================================
   //Additional elements
-  G4double zH,aH,zC,aC,zO,aO,zN,aN,zAr,aAr,zI,aI,zNa,aNa,zP,aP,zS,aS,zCl,aCl,zK,aK,zFe,aFe,zAl,aAl,aCa,zCa,aSi,zSi,fractionmassA, densityA,fractionmassPI, densityPI,fractionmassB, densityB, densityAl, densityHPA,densityFGR,densityDBT1, fractionmassFGR,densityADP,fractionmassADP,densityDBT,fractionmassDBT,fractionmassDBT1,densityPQ595,fractionmassPQ595,fractionmassPQ3070,densityPQ3070,fractionmassPQ5050,densityPQ5050,densitySilicone,densityPMMA,fractionmassPMMA,fractionmassMuscle,densityMuscle,fractionmassAorta,densityAorta;
+  G4double zH,aH,zC,aC,zO,aO,zN,aN,zAr,aAr,zI,aI,zNa,aNa,zP,aP,zS,aS,zCl,aCl,zK,aK,zFe,aFe,zAl,aAl,aCa,zCa,aSi,zSi,fractionmassA, densityA,fractionmassPI, densityPI,fractionmassB, densityB, densityAl, densityHPA,densityFGR,densityDBT1, fractionmassFGR,densityADP,fractionmassADP,densityDBT,fractionmassDBT,fractionmassDBT1,densityPQ595,fractionmassPQ595,fractionmassPQ3070,densityPQ3070,fractionmassPQ5050,densityPQ5050,densitySilicone,densityPMMA,fractionmassPMMA,fractionmassMuscle,densityMuscle,fractionmassAorta,densityAorta,densityWax;
   
-  G4String nameAll, symbolH,nameH, symbolC,nameC, symbolO,nameO, symbolN,nameN, symbolAr,nameAr, symbolI,nameI, symbolNa,nameNa, symbolP,nameP, symbolS,nameS, symbolCl,nameCl, symbolK,nameK, symbolFe,nameFe, symbolAl,nameSi,symbolSi,nameA, namePI, nameB, nameAl, nameHPA,nameCa,symbolCa,nameFGR,nameADP,nameDBT,nameDBT1,namePQ595,namePQ3070,namePQ5050,nameSilicone,namePMMA,nameMuscle,nameAorta;
+  G4String nameAll, symbolH,nameH, symbolC,nameC, symbolO,nameO, symbolN,nameN, symbolAr,nameAr, symbolI,nameI, symbolNa,nameNa, symbolP,nameP, symbolS,nameS, symbolCl,nameCl, symbolK,nameK, symbolFe,nameFe, symbolAl,nameSi,symbolSi,nameA, namePI, nameB, nameAl, nameHPA,nameCa,symbolCa,nameFGR,nameADP,nameDBT,nameDBT1,namePQ595,namePQ3070,namePQ5050,nameSilicone,namePMMA,nameMuscle,nameAorta,nameWax;
   
-  G4int ncomponentsA, ncomponentsPI, ncomponentsB, ncomponentsAl, natomsAl, ncomponentsHPA, natomsHPA,natomsSilicone, ncomponentsFGR,ncomponentsADP,ncomponentsDBT,ncomponentsDBT1,ncomponentsPQ595,ncomponentsPQ3070,ncomponentsPQ5050,ncomponentsSilicone,ncomponentsPMMA,ncomponentsMuscle,ncomponentsAorta;
+  G4int ncomponentsA, ncomponentsPI, ncomponentsB, ncomponentsAl, natomsAl, natomsWax, ncomponentsHPA, natomsHPA,natomsSilicone, ncomponentsFGR,ncomponentsADP,ncomponentsDBT,ncomponentsDBT1,ncomponentsPQ595,ncomponentsPQ3070,ncomponentsPQ5050,ncomponentsSilicone,ncomponentsPMMA,ncomponentsMuscle,ncomponentsAorta,ncomponentsWax;
 
   aN = 14.01*g/mole;
   G4Element* Nitrogen1 = new G4Element(nameN="Nitrogen",symbolN="N" , zN= 7., aN);
@@ -385,7 +366,7 @@ void PepiDetectorConstruction::DefineMaterials()
   AAir ->AddElement(Argon1, fractionmassA=1.2801*perCent);
   
   //P.Iodine
-  densityPI = 0.8*g/cm3;
+  densityPI = 0.4*g/cm3;
   G4Material* PIodine = new G4Material(namePI="PIodine",densityPI,ncomponentsPI=5);
   PIodine ->AddElement(Carbon1, fractionmassPI=1.981*perCent);
   PIodine ->AddElement(Oxygen1, fractionmassPI=80.371*perCent);
@@ -408,13 +389,19 @@ void PepiDetectorConstruction::DefineMaterials()
   Blood ->AddElement(Iron1, fractionmassB=0.1*perCent);
   
   //Alumina
-  densityAl = 3.961*g/cm3;
+  densityAl = 3.99*g/cm3;
   G4Material* Alumina = new G4Material(nameAl="Alumina",densityAl,ncomponentsAl=2);
   Alumina->AddElement(Aluminium1, natomsAl=2);
   Alumina->AddElement(Oxygen1, natomsAl=3);
+
+  //Wax-Eicosane
+  densityWax = 0.788*g/cm3;
+  G4Material* Wax= new G4Material(nameWax="Wax",densityWax,ncomponentsWax=2);
+  Wax->AddElement(Hydrogen1, natomsWax=42);
+  Wax->AddElement(Carbon1, natomsWax=20);
   
   //HP
-  densityHPA = 3.961*g/cm3;
+  densityHPA = 3.16*g/cm3;
   G4Material* Hydroxyapatite = new G4Material(nameHPA="Hydroxyapatite",densityHPA,ncomponentsHPA=4);
   Hydroxyapatite->AddElement(Calcium1, natomsHPA=10);
   Hydroxyapatite->AddElement(Oxygen1, natomsHPA=26);
@@ -447,14 +434,15 @@ void PepiDetectorConstruction::DefineMaterials()
   Aorta->AddElement(Calcium1, fractionmassAorta=0.4*perCent);
   
   //Adipose
-  densityADP = 0.92*g/cm3;
-  G4Material*  Adipose= new G4Material(nameADP="Adipose",densityADP,ncomponentsADP=6);
-  Adipose->AddElement(Carbon1, fractionmassADP=64.0*perCent);
-  Adipose->AddElement(Oxygen1, fractionmassADP=22.9*perCent);
-  Adipose->AddElement(Phosphorus1, fractionmassADP=0.2*perCent);
-  Adipose->AddElement(Hydrogen1, fractionmassADP=12.0*perCent);
-  Adipose->AddElement(Nitrogen1, fractionmassADP=0.8*perCent);
-  Adipose->AddElement(Calcium1, fractionmassADP=0.1*perCent);
+  densityADP = 0.95*g/cm3;
+  G4Material*  Adipose= new G4Material(nameADP="Adipose",densityADP,ncomponentsADP=7);
+  Adipose->AddElement(Carbon1, fractionmassADP=59.8*perCent);
+  Adipose->AddElement(Oxygen1, fractionmassADP=27.8*perCent);
+  Adipose->AddElement(Sodium1, fractionmassADP=0.1*perCent);
+  Adipose->AddElement(Hydrogen1, fractionmassADP=11.4*perCent);
+  Adipose->AddElement(Nitrogen1, fractionmassADP=0.7*perCent);
+  Adipose->AddElement(Sulfur1, fractionmassADP=0.1*perCent);
+  Adipose->AddElement(Chlorine1, fractionmassADP=0.1*perCent);
   
    //PMMA
   densityPMMA = 1.19*g/cm3;
@@ -485,34 +473,34 @@ void PepiDetectorConstruction::DefineMaterials()
   Silicone->AddElement(Hydrogen1, natomsSilicone=6);
   
   //DenseBreast
-  densityDBT = 1.005*g/cm3;
+  densityDBT = 1.0095*g/cm3;
   G4Material* DenseBreast = new G4Material(nameDBT="DenseBreast",densityDBT,ncomponentsDBT=2);
   DenseBreast ->AddMaterial(Adipose, fractionmassDBT=15*perCent);
   DenseBreast ->AddMaterial(FibroGland, fractionmassDBT=85*perCent);
   
   //StandardBreast
-  densityDBT1 = 0.97*g/cm3;
+  densityDBT1 = 0.985*g/cm3;
   G4Material* StandardBreast = new G4Material(nameDBT1="StandardBreast",densityDBT1,ncomponentsDBT1=2);
   StandardBreast ->AddMaterial(Adipose, fractionmassDBT1=50*perCent);
   StandardBreast ->AddMaterial(FibroGland, fractionmassDBT1=50*perCent);
   
-  //Plaque5-95
+  //Plaque10-90
   densityPQ595 = 1.396*g/cm3;
   G4Material* PlaqueS = new G4Material(namePQ595="PlaqueS",densityPQ595,ncomponentsPQ595=2);
-  PlaqueS ->AddMaterial(Hydroxyapatite, fractionmassPQ595=5*perCent);
-  PlaqueS ->AddMaterial(Methacrylate, fractionmassPQ595=95*perCent);
+  PlaqueS ->AddMaterial(Hydroxyapatite, fractionmassPQ595=10*perCent);
+  PlaqueS ->AddMaterial(Methacrylate, fractionmassPQ595=90*perCent);
   
   //Plaque30-70
-  densityPQ3070 = 2.9383*g/cm3;
+  densityPQ3070 = 1.788*g/cm3;
   G4Material* PlaqueI = new G4Material(namePQ3070="PlaqueI",densityPQ3070,ncomponentsPQ3070=2);
   PlaqueI ->AddMaterial(Hydroxyapatite, fractionmassPQ3070=30*perCent);
   PlaqueI ->AddMaterial(Methacrylate, fractionmassPQ3070=70*perCent);
   
-  //Plaque50-50
-  densityPQ5050 = 3.2305*g/cm3;
-  G4Material* PlaqueC = new G4Material(namePQ5050="PlaqueC",densityPQ5050,ncomponentsPQ5050=2);
-  PlaqueC ->AddMaterial(Hydroxyapatite, fractionmassPQ5050=50*perCent);
-  PlaqueC ->AddMaterial(Methacrylate, fractionmassPQ5050=50*perCent);
+  //Plaque20-80
+  densityPQ5050 = 1.592*g/cm3;
+  G4Material* PlaqueC = new G4Material(namePQ5050="PlaqueI",densityPQ5050,ncomponentsPQ5050=2);
+  PlaqueC ->AddMaterial(Hydroxyapatite, fractionmassPQ5050=20*perCent);
+  PlaqueC ->AddMaterial(Methacrylate, fractionmassPQ5050=80*perCent);
 
   // ========================================
   //         REFRACTION COEFFICIENTS
@@ -534,12 +522,16 @@ void PepiDetectorConstruction::DefineMaterials()
   std::vector<double> AluminaDelta = LoadDelta("../data/Alumina_delta.txt");
   std::vector<double> HydroxyapatiteDelta = LoadDelta("../data/HA_delta.txt");
   std::vector<double> AortaDelta = LoadDelta("../data/Aorta_delta.txt");
-  std::vector<double> BreastDelta = LoadDelta("../data/Breast_delta.txt");
+  std::vector<double> Breast5050Delta = LoadDelta("../data/Breast5050_delta.txt");
+  std::vector<double> Breast8515Delta = LoadDelta("../data/Breast8515_delta.txt");
+  std::vector<double> Plaque9010Delta = LoadDelta("../data/Plaque9010_delta.txt");
+  std::vector<double> Plaque8020Delta = LoadDelta("../data/Plaque8020_delta.txt");
+  std::vector<double> Plaque7030Delta = LoadDelta("../data/Plaque7030_delta.txt");
   std::vector<double> GlandularDelta = LoadDelta("../data/Glandular_delta.txt");
+  std::vector<double> AdiposeDelta = LoadDelta("../data/Adipose_delta.txt");
   std::vector<double> MuscleDelta = LoadDelta("../data/Muscle_delta.txt");
   std::vector<double> SiliconeDelta = LoadDelta("../data/Silicone_delta.txt");
-  std::vector<double> CelluloseDelta = LoadDelta("../data/Cellulose_delta.txt");
-  std::vector<double> SiCDelta = LoadDelta("../data/SiC_delta.txt");  
+  std::vector<double> WaxDelta = LoadDelta("../data/Wax_delta.txt");
   	
   
   
@@ -563,11 +555,15 @@ void PepiDetectorConstruction::DefineMaterials()
   std::vector<double> RhodiumRindex(NumEntries);
   std::vector<double> SilverRindex(NumEntries);
   std::vector<double> AortaRindex(NumEntries);
-  std::vector<double> BreastRindex(NumEntries);
+  std::vector<double> Breast5050Rindex(NumEntries);
+  std::vector<double> Breast8515Rindex(NumEntries);
+  std::vector<double> Plaque9010Rindex(NumEntries);
+  std::vector<double> Plaque8020Rindex(NumEntries);
+  std::vector<double> Plaque7030Rindex(NumEntries);
+  std::vector<double> AdiposeRindex(NumEntries);
   std::vector<double> GlandularRindex(NumEntries);
   std::vector<double> MuscleRindex(NumEntries);
-  std::vector<double> CelluloseRindex(NumEntries);
-  std::vector<double> SiCRindex(NumEntries);  
+  std::vector<double> WaxRindex(NumEntries);
   
   for (G4int i = 0; i < NumEntries; ++i)
   {
@@ -592,11 +588,15 @@ void PepiDetectorConstruction::DefineMaterials()
     RhodiumRindex[i]	    = 1;
     SilverRindex[i]	    = 1;
     AortaRindex[i]	    = 1 - AortaDelta[i];
-    BreastRindex[i]	    = 1 - BreastDelta[i];
+    Breast5050Rindex[i]	    = 1 - Breast5050Delta[i];
+    Breast8515Rindex[i]	    = 1 - Breast8515Delta[i];
+    Plaque9010Rindex[i]	    = 1 - Plaque9010Delta[i];
+    Plaque8020Rindex[i]	    = 1 - Plaque8020Delta[i];
+    Plaque7030Rindex[i]	    = 1 - Plaque7030Delta[i];
+    AdiposeRindex[i]	    = 1 - AdiposeDelta[i];
     GlandularRindex[i]	    = 1 - GlandularDelta[i];
     MuscleRindex[i]	    = 1 - MuscleDelta[i];
-    CelluloseRindex[i]      = 1 - CelluloseDelta[i];
-    SiCRindex[i]            = 1 - SiCDelta[i]; 
+    WaxRindex[i]	    = 1 - WaxDelta[i];
  }
  
 
@@ -621,11 +621,11 @@ void PepiDetectorConstruction::DefineMaterials()
   Hydroxyapatite->SetMaterialPropertiesTable(HAMatPropTbl);
   
   G4MaterialPropertiesTable* DBTMatPropTbl = new G4MaterialPropertiesTable();
-  DBTMatPropTbl->AddProperty("RINDEX",energies.data(),GlandularRindex.data(),NumEntries);
+  DBTMatPropTbl->AddProperty("RINDEX",energies.data(),Breast8515Rindex.data(),NumEntries);
   DenseBreast->SetMaterialPropertiesTable(DBTMatPropTbl); 
   
   G4MaterialPropertiesTable* DBT1MatPropTbl = new G4MaterialPropertiesTable();
-  DBT1MatPropTbl->AddProperty("RINDEX",energies.data(),BreastRindex.data(),NumEntries);
+  DBT1MatPropTbl->AddProperty("RINDEX",energies.data(),Breast5050Rindex.data(),NumEntries);
   StandardBreast->SetMaterialPropertiesTable(DBT1MatPropTbl);
   
   G4MaterialPropertiesTable* AortaMatPropTbl = new G4MaterialPropertiesTable();
@@ -638,15 +638,15 @@ void PepiDetectorConstruction::DefineMaterials()
   Silicone->SetMaterialPropertiesTable(SiliconeMatPropTbl);
   
   G4MaterialPropertiesTable* PlSMatPropTbl = new G4MaterialPropertiesTable();
-  PlSMatPropTbl->AddProperty("RINDEX",energies.data(),PlexiGlassRindex.data(),NumEntries);
+  PlSMatPropTbl->AddProperty("RINDEX",energies.data(),Plaque9010Rindex.data(),NumEntries);
   PlaqueS->SetMaterialPropertiesTable(PlSMatPropTbl);
   
   G4MaterialPropertiesTable* PlIMatPropTbl = new G4MaterialPropertiesTable();
-  PlIMatPropTbl->AddProperty("RINDEX",energies.data(),PlexiGlassRindex.data(),NumEntries);
+  PlIMatPropTbl->AddProperty("RINDEX",energies.data(),Plaque7030Rindex.data(),NumEntries);
   PlaqueI->SetMaterialPropertiesTable(PlIMatPropTbl);
   
   G4MaterialPropertiesTable* PlCMatPropTbl = new G4MaterialPropertiesTable();
-  PlCMatPropTbl->AddProperty("RINDEX",energies.data(),PlexiGlassRindex.data(),NumEntries);
+  PlCMatPropTbl->AddProperty("RINDEX",energies.data(),Plaque8020Rindex.data(),NumEntries);
   PlaqueC->SetMaterialPropertiesTable(PlCMatPropTbl); 
 
   G4MaterialPropertiesTable* GraphiteMatPropTbl = new G4MaterialPropertiesTable();
@@ -703,33 +703,29 @@ void PepiDetectorConstruction::DefineMaterials()
   
   G4MaterialPropertiesTable* MuscleMatPropTbl = new G4MaterialPropertiesTable();
   MuscleMatPropTbl->AddProperty("RINDEX",energies.data(),MuscleRindex.data(),NumEntries);
-  Muscle->SetMaterialPropertiesTable(MuscleMatPropTbl); 
-  
-  G4MaterialPropertiesTable* CelluloseMatPropTbl = new G4MaterialPropertiesTable();
-  CelluloseMatPropTbl->AddProperty("RINDEX",energies.data(),CelluloseRindex.data(),NumEntries);
-  Cellulose->SetMaterialPropertiesTable(CelluloseMatPropTbl); 
-  
-  G4MaterialPropertiesTable* SiCMatPropTbl = new G4MaterialPropertiesTable();
-  SiCMatPropTbl->AddProperty("RINDEX",energies.data(),SiCRindex.data(),NumEntries);
-  SiC->SetMaterialPropertiesTable(SiCMatPropTbl);
+  Muscle->SetMaterialPropertiesTable(MuscleMatPropTbl);
+
+  G4MaterialPropertiesTable* WaxMatPropTbl = new G4MaterialPropertiesTable();
+  WaxMatPropTbl->AddProperty("RINDEX",energies.data(),WaxRindex.data(),NumEntries);
+  Wax->SetMaterialPropertiesTable(WaxMatPropTbl); 
   
   // ========================================
   //           DEFAULT MATERIALS
   // ========================================
 
-  fWorldMaterial    = Galactic;
+  fWorldMaterial    = Vacuum1;
   fIonCMaterial     = Air;// Vacuum1;
   //fDetectorMaterial = CdTe;
   fDetectorMaterial = Silicon;
  fMaskMaterial     = Gold;
   //fObjectMaterial   = PlaqueS;
-  fObject2Material  = Methacrylate;
+  //fObject2Material  = Methacrylate;
   //fObject3Material  = Blood;
-  fSubMaterial	    = Cellulose;
-  fSphereMaterial   = SiC;
-  fMuscleMaterial = Methacrylate;
-  fMicroSphereMaterial = AluminumDioxide;
-  fMuscleMaterial1 = Methacrylate;
+  fSubMaterial	    = Graphite;
+  //fSphereMaterial   = SiC;
+  fMuscleMaterial = PlexiGlass;
+  fMicroSphereMaterial = Alumina;
+  fMuscleMaterial1 = PlexiGlass;
   fWaxInsertMaterial = Wax;
 }
 
@@ -863,196 +859,6 @@ void PepiDetectorConstruction::DefineVolumes()
   fPixiRadLogical->SetRegion(aRegion);
   aRegion->AddRootLogicalVolume(fPixiRadLogical);
   
-/* 
-    // ========================================
-    //               Sand_paper 1
-    // ========================================
- 
-fSphereSolid = new G4Sphere("sphere1",
-			      0*um,                         //its R_min
-			      fPixelSize2X/2,               // its R_max
-			      0*deg,		            //its symetric angle azim
-			      360*deg,                     // its final angle 
-			      0*deg,                       //its symetric zenith angle
-			      360*deg);                     //its final angle zenith
-
-
-fSphereLogical = new G4LogicalVolume(fSphereSolid, 
-				      fSphereMaterial,
-				      "SphereLV");                                     
- 
- 
- 
- 
- // Build the Speckel's Envelope 
-  fSandSolid =  new G4Box("SandDet",                    //its name                 
-                             fPixiRadSize2X/2,              //its size
-                             fPixiRadSize2X/2,
-                             fPixiRadSize3Z/2);        
-      
-  fSandLogical =  new G4LogicalVolume(fSandSolid,    //its solid
-                                      fWorldMaterial,   //its material
-                                      "SandDet");       //its name
- 
-  
- // G4double x1 = + j*fPixelSize2X - fPixiRadSize2X/2;// + fPixelSizeX/2;
- //      G4double y1 = - i*fPixelSize2X + fPixiRadSize2X/2;// - fPixelSizeY/2;
- 
- //G4int copy_nn = 0;
- G4int Numb_speck = 200000;
- 
- for(G4int i = 0; i < Numb_speck; i ++)
- {
- 	
- 	  G4double x1 = G4UniformRand()*fPixiRadSize2X - fPixiRadSize2X/2; 
- 	  G4double y1 = G4UniformRand()*fPixiRadSize2X - fPixiRadSize2X/2;
-         // G4double z1 = G4UniformRand()*fPixiRadSize2Z - fPixiRadSize2Z/2;
-      
-      G4ThreeVector position1 = G4ThreeVector(x1, y1, 0);
-      //G4String  names = "Speckle_" + G4UIcommand::ConvertToString(copy_nn);
-      
-      		fSpherePhysical = new G4PVPlacement(0, 
-      						     position1,
-      					             fSphereLogical,
-      					             "spheresplacement", 
-      					             fSandLogical,
-      					             false, 
-      					             i, 
-      						     fCheckOverlaps); 
-       
-	//copy_nn++;   
- 	 
- }                            
- 
- // - Place the Sandpaper Envelope in the World
-  G4ThreeVector positionSand = G4ThreeVector(0*um, 0*um, fSourcePosZ+fSrcObjDistance -5*cm);
-  fSandPhysical = new G4PVPlacement(0,                                                  //its rotation
-                                       positionSand,					   //its position
-                                       fSandLogical,                                    //its logical volume
-                                       "SandDet",                                          //its name
-                                       fWorldLogical,                                      //its mother volume
-                                       false,                                              //no boolean operation
-                                       0,                                                  //copy number
-                                       fCheckOverlaps);                                    //checking overlaps
-
-
-  G4Region* aRegion2 = new G4Region("SandDet");
-  fSandLogical->SetRegion(aRegion2);
-  aRegion2->AddRootLogicalVolume(fSandLogical);
-  
-
-
-
-//--------------------------------- end SandPaper1 ----------------------------------------------------------------  
-    // ========================================
-    //               Sand_paper 2
-    // ========================================
- 
-fSphereSolid2 = new G4Sphere("sphere2",
-			      0*um,                         //its R_min
-			      1.5*fPixelSize2X/2,               // its R_max
-			      0*deg,		            //its symetric angle azim
-			      360*deg,                     // its final angle 
-			      0*deg,                       //its symetric zenith angle
-			      360*deg);                     //its final angle zenith
-
-
-fSphereLogical2 = new G4LogicalVolume(fSphereSolid2, 
-				      fSphereMaterial,
-				      "Sphere2LV");        
-// Build the Speckel's Envelope 
-  fSandSolid2 =  new G4Box("SandDet3",                    //its name                 
-                             fPixiRadSize2X/2,              //its size
-                             fPixiRadSize2X/2,
-                             1.5*fPixiRadSize3Z/2);        
-      
-  fSandLogical2 =  new G4LogicalVolume(fSandSolid2,    //its solid
-                                      fWorldMaterial,   //its material
-                                      "SandDet3");       //its name
- 
-  
- // G4double x1 = + j*fPixelSize2X - fPixiRadSize2X/2;// + fPixelSizeX/2;
- //      G4double y1 = - i*fPixelSize2X + fPixiRadSize2X/2;// - fPixelSizeY/2;
- 
- //G4int copy_nn = 0;
- G4int Numb_speck2 = 200000;
-for(G4int i = 0; i < Numb_speck2; i ++)
- {
- 	
- 	  G4double x2 = G4UniformRand()*fPixiRadSize2X - fPixiRadSize2X/2; 
- 	  G4double y2 = G4UniformRand()*fPixiRadSize2X - fPixiRadSize2X/2;
-         // G4double z1 = G4UniformRand()*fPixiRadSize2Z - fPixiRadSize2Z/2;
-      
-      G4ThreeVector position2 = G4ThreeVector(x2, y2, 0);
-      //G4String  names = "Speckle_" + G4UIcommand::ConvertToString(copy_nn);
-      
-      		fSpherePhysical2 = new G4PVPlacement(0, 
-      						     position2,
-      					             fSphereLogical2,
-      					             "spheresplacement", 
-      					             fSandLogical2,
-      					             false, 
-      					             i, 
-      						     fCheckOverlaps); 
-       
-	//copy_nn++;   
- 	 
- }                            
- 
- // - Place the Sandpaper Envelope in the World
-  G4ThreeVector positionSand3 = G4ThreeVector(0*um, 0*um, fSourcePosZ+fSrcObjDistance -5*cm+ fPixiRadSize3Z/2 + 1.5*fPixiRadSize3Z/2);
-  fSandPhysical2 = new G4PVPlacement(0,                                                  //its rotation
-                                       positionSand3,					   //its position
-                                       fSandLogical2,                                    //its logical volume
-                                       "SandDet",                                          //its name
-                                       fWorldLogical,                                      //its mother volume
-                                       false,                                              //no boolean operation
-                                       0,                                                  //copy number
-                                       fCheckOverlaps);                                    //checking overlaps
-
-
-  G4Region* aRegion3 = new G4Region("SandDet3");
-  fSandLogical2->SetRegion(aRegion3);
-  aRegion3->AddRootLogicalVolume(fSandLogical2);
-  // ========================================
-    //              Envelope Cellulose Layer
-    // ========================================
-    
-
-
- 
-
-//-------------------------------------------------------------
- 
- // Build the Speckel's Envelope 
-  fSand3Solid =  new G4Box("SandDet4",                    //its name                 
-                             fPixiRadSize2Y/2,              //its size
-                             fPixiRadSize2Y/2,
-                             fPixiRadSize2Z);        
-      
-  fSand3Logical =  new G4LogicalVolume(fSand3Solid,    //its solid
-                                      fSubMaterial,   //its material
-                                      "SandDet4");       //its name
- 
-// -----------------------------------------------------------------  
-
- // - Place the Sandpaper Envelope in the World
-  G4ThreeVector positionSand4 = G4ThreeVector(0*um, 0*um, fSourcePosZ+fSrcObjDistance -5*cm + fPixiRadSize3Z/2 + 1.5*fPixiRadSize3Z + fPixiRadSize2Z/2);
-  fSand3Physical = new G4PVPlacement(0,                                                  //its rotation
-                                       positionSand4,					   //its position
-                                       fSand3Logical,                                    //its logical volume
-                                       "SandDet4",                                          //its name
-                                       fWorldLogical,                                      //its mother volume
-                                       false,                                              //no boolean operation
-                                       0,                                                  //copy number
-                                       fCheckOverlaps);                                    //checking overlaps
-
-
-*/
-
-//--------------------------------- end SandPaper2 ----------------------------------------------------------------  
-
-
 
   // ========================================
   //                DETECTOR MASK M2 and SUBSTRATE
@@ -1066,11 +872,6 @@ for(G4int i = 0; i < Numb_speck2; i ++)
   CreateMask("M2", mag_M2,fM2Pitch, fM2Aperture, M2Position, fMaskThickness, fMaskMaterial, fEnvelopeM2Logical, fEnvelopeM2Physical);
   CreateSubstrate("M2sub", mag_M2, M2Position-G4ThreeVector(0,0,fSubThickness/2+fMaskThickness/2), fSubThickness, fSubMaterial, fM2subLogical, fM2subPhysical);
   }
-  
-   G4ThreeVector objectPosition = G4ThreeVector(1.5*mm, 0, fSourcePosZ+fSrcObjDistance);
-  G4RotationMatrix* rotMat =  new G4RotationMatrix();
-  //rotMat->rotateZ(90*deg);
-  rotMat->rotateZ(fRotAngle);
 
   // ========================================
   //                 Objects
@@ -1082,12 +883,12 @@ for(G4int i = 0; i < Numb_speck2; i ++)
 fMuscleSolid = new G4Box("Cube", 6.05*cm, 6.2*cm, 4.4*cm);
 fMuscleLogical = new G4LogicalVolume(fMuscleSolid, fMuscleMaterial, "CubeLV");
 G4ThreeVector objectPositionCube = G4ThreeVector(0*mm, 0, fSourcePosZ+fSrcObjDistance);
-fMusclePhysical = new G4PVPlacement(rotMat, objectPositionCube, fMuscleLogical, "Cube", fWorldLogical, false, 0, fCheckOverlaps);
+fMusclePhysical = new G4PVPlacement(0, objectPositionCube, fMuscleLogical, "Cube", fWorldLogical, false, 0, fCheckOverlaps);
 
 fWaxInsertSolid = new G4Box("Wax", 5*cm, 5*cm, 7.25*mm);
 fWaxInsertLogical = new G4LogicalVolume(fWaxInsertSolid, fWaxInsertMaterial, "WaxLV");
 G4ThreeVector objectPositionWax = G4ThreeVector(0*mm, 0, 3.375*cm);
-fWaxInsertPhysical = new G4PVPlacement(rotMat, objectPositionWax, fWaxInsertLogical, "Wax", fMuscleLogical, false, 0, fCheckOverlaps);
+fWaxInsertPhysical = new G4PVPlacement(0, objectPositionWax, fWaxInsertLogical, "Wax", fMuscleLogical, false, 0, fCheckOverlaps);
 
 //Microcalcifications
 fMicroSphereSolid = new G4Sphere("Sphere",
@@ -1100,7 +901,7 @@ fMicroSphereSolid = new G4Sphere("Sphere",
           
 fMicroSphereLogical = new G4LogicalVolume(fMicroSphereSolid, fMicroSphereMaterial, "SphereLV");
 
-G4ThreeVector objectPositionSphere = G4ThreeVector(0, 0, 0);
+G4ThreeVector objectPositionSphere = G4ThreeVector(0, 2*mm, 0);
 
 fMicroSpherePhysical = new G4PVPlacement(0,
                                           objectPositionSphere,
@@ -1123,7 +924,7 @@ fMicroSphereSolid1 = new G4Sphere("Sphere1",
 
 fMicroSphereLogical1 = new G4LogicalVolume(fMicroSphereSolid1, fMicroSphereMaterial, "SphereLV1");
 
-G4ThreeVector objectPositionSphere1 = G4ThreeVector(0, 2*mm, 0);
+G4ThreeVector objectPositionSphere1 = G4ThreeVector(0, 0.15*mm, 0);
 
 fMicroSpherePhysical1 = new G4PVPlacement(0,
                                           objectPositionSphere1,
@@ -1146,7 +947,7 @@ fMicroSphereSolid2 = new G4Sphere("Sphere2",
 
 fMicroSphereLogical2 = new G4LogicalVolume(fMicroSphereSolid2, fMicroSphereMaterial, "SphereLV2");
 
-G4ThreeVector objectPositionSphere2 = G4ThreeVector(0*mm, -2*mm, 0);
+G4ThreeVector objectPositionSphere2 = G4ThreeVector(0*mm, -1.2*mm, 0);
 
 fMicroSpherePhysical2 = new G4PVPlacement(0,
                                           objectPositionSphere2,
@@ -1159,176 +960,29 @@ fMicroSpherePhysical2 = new G4PVPlacement(0,
 
 // ------------------------------------------------------
 
+fMicroSphereSolid3 = new G4Sphere("Sphere3",
+  0,
+  250*um,
+  0,
+  2*pi,
+  0,
+  pi);
+
+fMicroSphereLogical3 = new G4LogicalVolume(fMicroSphereSolid3, fMicroSphereMaterial, "SphereLV3");
+
+G4ThreeVector objectPositionSphere3 = G4ThreeVector(0*mm, -2*mm, 0);
+
+fMicroSpherePhysical3 = new G4PVPlacement(0,
+          objectPositionSphere3,
+          fMicroSphereLogical3,
+          "Sphere3",
+          fWaxInsertLogical,
+          false,
+          0,
+          fCheckOverlaps);
+
 
 // MODIFIED FINISH
-
-/*
-  // - Build the Object 1 as a Trapezoid
-  fObjectSolid = new G4Trd("Trap",                         //its name
-                            2.1/2*mm,                     //its half y1
-                            0.5/2*mm,                     //its half y2
-                            0.5*fObjSizeY,                 //its half x1
-                            0.5*fObjSizeY,               //its half x2
-                            fObjSizeR);                //its half height
-
-  fObjectLogical = new G4LogicalVolume(fObjectSolid,       //its solid
-                                       fObjectMaterial,    //its material
-                                       "TrapLV");          //its name
-  
- 
-
-  fObjectPhysical = new G4PVPlacement(rotMat,              //its rotation
-                                      objectPosition,       //its translation
-                                      fObjectLogical,      //its logical volume
-                                      "Trap",              //its name
-                                      fWorldLogical,       //its mother volume
-                                      false,               //no boolean operation
-                                      0,                   //copy number
-                                      fCheckOverlaps);     //checking overlaps
-
- // - Build the Object 2 as a Trapezoid
-  fObject2Solid = new G4Trd("Trap2",                         //its name
-                            0.82/2*mm,                             //its half x1
-                            0.5/2*mm,                     //its half x2
-                            0.5*fObjSizeY,                     //its half y1
-                            0.5*fObjSizeY,                     //its half y2
-                           fObjSizeR);                //its half height
-
-  fObject2Logical = new G4LogicalVolume(fObject2Solid,       //its solid
-                                       fObjectMaterial,
-//                                       fObject2Material,		    //its material
-                                       "Trap2LV");          //its name
-  
-  G4ThreeVector objectPosition2 = G4ThreeVector(0.*mm, 0, fSourcePosZ+fSrcObjDistance);
-
-  fObject2Physical = new G4PVPlacement(rotMat,              //its rotation
-                                      objectPosition2,       //its translation
-                                      fObject2Logical,      //its logical volume
-                                      "Trap2",              //its name
-                                      fWorldLogical,       //its mother volume
-                                      false,               //no boolean operation
-                                      0,                   //copy number
-                                      fCheckOverlaps);     //checking overlaps
-
- // - Build the Object 3 as a Trapezoid
-  fObject3Solid = new G4Trd("Trap3",                         //its name
-                            0.66/2*mm,                             //its half x1
-                            0.5/2*mm,                     //its half x2
-                            0.5*fObjSizeY,                     //its half y1
-                            0.5*fObjSizeY,                     //its half y2
-                            fObjSizeR);                //its half height
-                            
-  fObject3Logical = new G4LogicalVolume(fObject3Solid,       //its solid
-  					fObjectMaterial,     //its material
-                                       "Trap3LV");          //its name
-  
-  G4ThreeVector objectPosition3 = G4ThreeVector(-1.5*mm, 0, fSourcePosZ+fSrcObjDistance);
-  
-  fObject3Physical = new G4PVPlacement(rotMat,              //its rotation
-                                      objectPosition3,       //its translation
-                                      fObject3Logical,      //its logical volume
-                                      "Trap3",              //its name
-                                      fWorldLogical,       //its mother volume
-                                      false,               //no boolean operation
-                                      0,                   //copy number
-                                      fCheckOverlaps);     //checking overlaps
-                                    
-  
- */
-
-  G4double Rint = 3.01/2 *mm;
-  G4double Rext = 4.01/2 *mm;
-  G4double Lenght = 12*mm;                                                                                                                    
- //==================================
- //   PHANTOM MUSCLE as CYLINDER
- //==================================
- 
- /*
-  G4RotationMatrix* rotMat4 =  new G4RotationMatrix();
-  rotMat4->rotateX(90*deg);
-  
-  fSphere3Solid = new G4Tubs("tube2",
- 			      Rint,
-	    		      Rext,
-	    		      Lenght,
-	    		      0,
-	    		      2*pi);
-fSphere3Logical = new G4LogicalVolume(fSphere3Solid,
-				       fObject2Material, //PMMA 
-				       "TubeLV2");
-				       	    		      				                                     
- G4ThreeVector objectPosition7 = G4ThreeVector(0*mm, 0, fSourcePosZ+fSrcObjDistance); 
- 
- fSphere3Physical = new G4PVPlacement(rotMat4,              //its rotation
-                                      objectPosition7,       //its translation
-                                      fSphere3Logical,      //its logical volume
-                                      "tube2",              //its name
-                                      fWorldLogical,       //its mother volume
-                                      false,               //no boolean operation
-                                      0,                   //copy number
-                                      fCheckOverlaps);     //checking overlaps       
-                                   
- //==================================
- //   Blood/Air BackGround
- //==================================
- 
- 
-  G4RotationMatrix* rotMat3 =  new G4RotationMatrix();
-  rotMat3->rotateX(90*deg);
-  
-  fSphere5Solid = new G4Tubs("tubeBlood",
- 			      0*mm,
-	    		      Rint,
-	    		      Lenght,
-	    		      0,
-	    		      2*pi);
-fSphere5Logical = new G4LogicalVolume(fSphere5Solid,
-				       fMuscleMaterial, //fWorldMaterial ->Air or Bloor ->fMuscleMaterial
-				       "TubeLVB");
-				       	    		      				                                     
- G4ThreeVector objectPosition5 = G4ThreeVector(0*mm, 0, fSourcePosZ+fSrcObjDistance); 
- 
- fSphere5Physical = new G4PVPlacement(rotMat3,              //its rotation
-                                      objectPosition5,       //its translation
-                                      fSphere5Logical,      //its logical volume
-                                      "tubeBlod",              //its name
-                                      fWorldLogical,       //its mother volume
-                                      false,               //no boolean operation
-                                      0,                   //copy number
-                                      fCheckOverlaps);     //checkingoverlaps  
-*/                                                                     
-
-//==================================
- //   Plaque
- //==================================
- /*
- 
-  G4RotationMatrix* rotMat2 =  new G4RotationMatrix();
-  rotMat2->rotateX(90*deg);
-
-  
-  fSphere2Solid = new G4Tubs("tube1",
- 			      0,
-	    		      Rint,
-	    		      Lenght,
-	    		      0*deg,
-	    		      45*deg);
-fSphere2Logical = new G4LogicalVolume(fSphere2Solid,
-				       fObjectMaterial,
-				       "TubeLV");
-				       	    		      				                                     
- G4ThreeVector objectPosition4 = G4ThreeVector(0*mm, 0, fSourcePosZ+fSrcObjDistance); 
- 
- fSphere2Physical = new G4PVPlacement(rotMat2,              //its rotation
-                                      objectPosition4,       //its translation
-                                      fSphere2Logical,      //its logical volume
-                                      "tube1",              //its name
-                                      fWorldLogical,       //its mother volume
-                                      false,               //no boolean operation
-                                      0,                   //copy number
-                                      fCheckOverlaps);     //checking overlaps   
-                                      
-*/
 
   // ========================================
   //       SAMPLE MASK M1 and substrate
@@ -1336,7 +990,7 @@ fSphere2Logical = new G4LogicalVolume(fSphere2Solid,
   if (fAcquisitionType=="doublemask"|| fAcquisitionType=="singlemask")
   {
   G4double mag_M1 = (fSrcObjDistance+fObjectDetDistance)/(fSrcObjDistance-(fMaskThickness/2+fObjSizeR)); // magnification of the mask M1
-  G4ThreeVector M1Position = objectPosition-G4ThreeVector(0,0,(fMaskThickness+2*fObjSizeR)/2)+G4ThreeVector(0*cm,0,0);
+  G4ThreeVector M1Position = G4ThreeVector(0,0,fSourcePosZ+fSrcObjDistance)-G4ThreeVector(0,0,(fMaskThickness+2*(4.4*cm))/2);
   
   std::tie(fEnvelopeM1Logical,fEnvelopeM1Physical) = CreateMask("M1", mag_M1,fM2Pitch, fM2Aperture, M1Position, fMaskThickness, fMaskMaterial, fEnvelopeM1Logical, fEnvelopeM1Physical);
   
@@ -1479,6 +1133,8 @@ fSphere2Logical = new G4LogicalVolume(fSphere2Solid,
   waxVisAtt->SetForceSolid(true);
   //cubeVisAtt->SetVisibility(true);
   fWaxInsertLogical->SetVisAttributes(waxVisAtt);
+
+  // ------------------------------------------------------
   
   G4VisAttributes* sphereVisAtt = new G4VisAttributes(G4Colour(1, 1, 1.0, 1.0));
   sphereVisAtt->SetForceSolid(true);
@@ -1497,6 +1153,10 @@ fSphere2Logical = new G4LogicalVolume(fSphere2Solid,
   fMicroSphereLogical2->SetVisAttributes(sphereVisAtt2);
   
   // ------------------------------------------------------
+
+  G4VisAttributes* sphereVisAtt3 = new G4VisAttributes(G4Colour(1, 1, 1.0, 1.0));
+  sphereVisAtt3->SetForceSolid(true);
+  fMicroSphereLogical3->SetVisAttributes(sphereVisAtt3);
 
   // MODIFIED FINISH
 
