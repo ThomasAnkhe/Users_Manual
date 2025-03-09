@@ -157,6 +157,8 @@ class PepiDetectorConstruction : public G4VUserDetectorConstruction
 
     // MODIFIED START
     G4Material* fMicroSphereMaterial;
+    G4Material* fWaxInsertMaterial;
+    G4Material* fMuscleMaterial1;
     // MODIFIED FINISH
 
     G4Box*  fWorldSolid;
@@ -189,6 +191,9 @@ class PepiDetectorConstruction : public G4VUserDetectorConstruction
     G4Sphere* fMicroSphereSolid1;
     G4Sphere* fMicroSphereSolid2;
     G4Sphere* fMicroSphereSolid3;
+
+    G4Box* fMuscleSolid1;
+    G4Box* fWaxInsertSolid;
     // MODIFIED FINISH
 
     G4LogicalVolume* fWorldLogical;
@@ -221,6 +226,9 @@ class PepiDetectorConstruction : public G4VUserDetectorConstruction
     G4LogicalVolume* fMicroSphereLogical1;
     G4LogicalVolume* fMicroSphereLogical2;
     G4LogicalVolume* fMicroSphereLogical3;
+
+    G4LogicalVolume* fMuscleLogical1;
+    G4LogicalVolume* fWaxInsertLogical;
     // MODIFIED FINISH
 
     G4LogicalVolume*  fScoringVolume;
@@ -255,6 +263,9 @@ class PepiDetectorConstruction : public G4VUserDetectorConstruction
     G4VPhysicalVolume* fMicroSpherePhysical1;
     G4VPhysicalVolume* fMicroSpherePhysical2;
     G4VPhysicalVolume* fMicroSpherePhysical3;
+
+    G4VPhysicalVolume* fMusclePhysical1;
+    G4VPhysicalVolume* fWaxInsertPhysical;
     // MODIFIED FINISH
 
     G4double fRotAngle;

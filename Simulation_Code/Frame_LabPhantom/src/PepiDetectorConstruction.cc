@@ -88,7 +88,11 @@ PepiDetectorConstruction::PepiDetectorConstruction()
   fSubMaterial(0),
   fSphereMaterial(0),
   fMuscleMaterial(0),
+
   fMicroSphereMaterial(0),
+  fWaxInsertMaterial(0),
+  fMuscleMaterial1(0),
+
   fWorldSolid(0),
   fPixiRadSolid(0),
   fPixelSolid(0),
@@ -112,9 +116,13 @@ PepiDetectorConstruction::PepiDetectorConstruction()
   fMuscleSolid(0),
   fSphere3Solid(0),
   fSphere5Solid(0),
+
   fMicroSphereSolid(0),
   fMicroSphereSolid1(0),
   fMicroSphereSolid2(0),
+  fMuscleSolid1(0),
+  fWaxInsertSolid(0),
+
   fWorldLogical(0),
   fPixiRadLogical(0),
   fPixelLogical(0),
@@ -138,9 +146,13 @@ PepiDetectorConstruction::PepiDetectorConstruction()
   fMuscleLogical(0),
   fSphere3Logical(0),
   fSphere5Logical(0),
+
   fMicroSphereLogical(0),
   fMicroSphereLogical1(0),
   fMicroSphereLogical2(0),
+  fMuscleLogical1(0),
+  fWaxInsertLogical(0),
+
   fScoringVolume(0),
   fWorldPhysical(0),
   fPixiRadPhysical(0),
@@ -165,9 +177,13 @@ PepiDetectorConstruction::PepiDetectorConstruction()
   fMusclePhysical(0),
   fSphere3Physical(0),
   fSphere5Physical(0),
+
   fMicroSpherePhysical(0),
   fMicroSpherePhysical1(0),
   fMicroSpherePhysical2(0),
+  fMusclePhysical1(0),
+  fWaxInsertPhysical(0),
+
   fRotAngle(0*deg),
   fTrans(0*um),
   fDith(0*um),
@@ -209,8 +225,12 @@ PepiDetectorConstruction::PepiDetectorConstruction()
   fWorldSizeY = 1*m;
   fWorldSizeZ = 2.3*m;
 
-  fObjSizeR = 3.38*cm;
-  fObjSizeY = 10.8*cm;  
+  // Modified Start
+
+  fObjSizeR = 4.4*cm;
+  fObjSizeY = 6.12*cm;  
+
+  // Modified Finish
 
   fSkinThickness = 1.45*mm;
 
@@ -290,6 +310,7 @@ void PepiDetectorConstruction::DefineMaterials()
   G4Material* Cellulose     = nist->FindOrBuildMaterial("G4_CELLULOSE_CELLOPHANE");
   G4Material* AluminumDioxide = nist->FindOrBuildMaterial("G4_ALUMINUM_OXIDE");
   G4Material* Galactic = nist->FindOrBuildMaterial("G4_Galactic");
+  G4Material* Wax = nist->FindOrBuildMaterial("G4_M3_WAX");
   
   
    // ========================================
@@ -708,6 +729,8 @@ void PepiDetectorConstruction::DefineMaterials()
   fSphereMaterial   = SiC;
   fMuscleMaterial = Methacrylate;
   fMicroSphereMaterial = AluminumDioxide;
+  fMuscleMaterial1 = Methacrylate;
+  fWaxInsertMaterial = Wax;
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
@@ -1053,27 +1076,20 @@ for(G4int i = 0; i < Numb_speck2; i ++)
   //                 Objects
   // ========================================
 
-  // MODIFIED START
-fMuscleSolid = new G4Box("Cube", 10.8*mm, 10.2*mm, 1*cm);
+// MODIFIED START
+
+ // Phantom Base
+fMuscleSolid = new G4Box("Cube", 6.05*cm, 6.2*cm, 4.4*cm);
 fMuscleLogical = new G4LogicalVolume(fMuscleSolid, fMuscleMaterial, "CubeLV");
-G4ThreeVector objectPositionCube = G4ThreeVector(0*mm, 0, fSourcePosZ+fSrcObjDistance+2.2*cm);
+G4ThreeVector objectPositionCube = G4ThreeVector(0*mm, 0, fSourcePosZ+fSrcObjDistance);
 fMusclePhysical = new G4PVPlacement(rotMat, objectPositionCube, fMuscleLogical, "Cube", fWorldLogical, false, 0, fCheckOverlaps);
 
-G4double sphereRadii[10] = {100*um, 200*um, 300*um, 400*um, 500*um, 600*um, 700*um, 800*um, 900*um, 1000*um};
-G4ThreeVector spherePositions[10] = {
-    G4ThreeVector(0, 0, 0),
-    G4ThreeVector(2.0*mm, 2.0*mm, 0),
-    G4ThreeVector(-2.0*mm, -2.0*mm, 0),
-    G4ThreeVector(3.0*mm, -3.0*mm, 0),
-    G4ThreeVector(-3.0*mm, 3.0*mm, 0),
-    G4ThreeVector(4.0*mm, 0, 0),
-    G4ThreeVector(-4.0*mm, 0, 0),
-    G4ThreeVector(0, 4.0*mm, 0),
-    G4ThreeVector(0, -4.0*mm, 0),
-    G4ThreeVector(1.5*mm, 1.5*mm, 0)
-};
+fWaxInsertSolid = new G4Box("Wax", 5*cm, 5*cm, 3*mm);
+fWaxInsertLogical = new G4LogicalVolume(fWaxInsertSolid, fWaxInsertMaterial, "WaxLV");
+G4ThreeVector objectPositionWax = G4ThreeVector(0*mm, 0, 3.4*cm);
+fWaxInsertPhysical = new G4PVPlacement(rotMat, objectPositionWax, fWaxInsertLogical, "Wax", fMuscleLogical, false, 0, fCheckOverlaps);
 
-
+//Microcalcifications
 fMicroSphereSolid = new G4Sphere("Sphere",
                                   0,
                                   1000*um,
@@ -1090,7 +1106,7 @@ fMicroSpherePhysical = new G4PVPlacement(0,
                                           objectPositionSphere,
                                           fMicroSphereLogical,
                                           "Sphere",
-                                          fMuscleLogical,
+                                          fWaxInsertLogical,
                                           false,
                                           0,
                                           fCheckOverlaps);
@@ -1113,7 +1129,7 @@ fMicroSpherePhysical1 = new G4PVPlacement(0,
                                           objectPositionSphere1,
                                           fMicroSphereLogical1,
                                           "Sphere1",
-                                          fMuscleLogical,
+                                          fWaxInsertLogical,
                                           false,
                                           0,
                                           fCheckOverlaps);
@@ -1130,13 +1146,13 @@ fMicroSphereSolid2 = new G4Sphere("Sphere2",
 
 fMicroSphereLogical2 = new G4LogicalVolume(fMicroSphereSolid2, fMicroSphereMaterial, "SphereLV2");
 
-G4ThreeVector objectPositionSphere2 = G4ThreeVector(0*mm, -1.5*mm, 0);
+G4ThreeVector objectPositionSphere2 = G4ThreeVector(0*mm, -2*mm, 0);
 
 fMicroSpherePhysical2 = new G4PVPlacement(0,
                                           objectPositionSphere2,
                                           fMicroSphereLogical2,
                                           "Sphere2",
-                                          fMuscleLogical,
+                                          fWaxInsertLogical,
                                           false,
                                           0,
                                           fCheckOverlaps);
@@ -1458,20 +1474,25 @@ fSphere2Logical = new G4LogicalVolume(fSphere2Solid,
   cubeVisAtt->SetForceSolid(true);
   //cubeVisAtt->SetVisibility(true);
   fMuscleLogical->SetVisAttributes(cubeVisAtt);
+
+  G4VisAttributes* waxVisAtt = new G4VisAttributes(G4Colour(1,0.75,0.79,0.5));
+  waxVisAtt->SetForceSolid(true);
+  //cubeVisAtt->SetVisibility(true);
+  fWaxInsertLogical->SetVisAttributes(waxVisAtt);
   
-  G4VisAttributes* sphereVisAtt = new G4VisAttributes(G4Colour(0.5, 0.5, 1.0, 1.0));
+  G4VisAttributes* sphereVisAtt = new G4VisAttributes(G4Colour(1, 1, 1.0, 1.0));
   sphereVisAtt->SetForceSolid(true);
   fMicroSphereLogical->SetVisAttributes(sphereVisAtt);
   
   // ------------------------------------------------------
   
-  G4VisAttributes* sphereVisAtt1 = new G4VisAttributes(G4Colour(0.5, 0.5, 1.0, 1.0));
+  G4VisAttributes* sphereVisAtt1 = new G4VisAttributes(G4Colour(1, 1, 1.0, 1.0));
   sphereVisAtt1->SetForceSolid(true);
   fMicroSphereLogical1->SetVisAttributes(sphereVisAtt1);
   
   // ------------------------------------------------------
   
-  G4VisAttributes* sphereVisAtt2 = new G4VisAttributes(G4Colour(0.5, 0.5, 1.0, 1.0));
+  G4VisAttributes* sphereVisAtt2 = new G4VisAttributes(G4Colour(1, 1, 1.0, 1.0));
   sphereVisAtt2->SetForceSolid(true);
   fMicroSphereLogical2->SetVisAttributes(sphereVisAtt2);
   
