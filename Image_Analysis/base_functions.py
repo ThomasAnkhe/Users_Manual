@@ -10,6 +10,7 @@ def Matrix_Creator(Raw, Pixels):
     """
     image_pair = []
     for k in range(0, len(Raw), Pixels*Pixels):
+        print(len(Raw))
         blank = np.zeros((Pixels, Pixels))
         for i in range(Pixels):
             for j in range(Pixels):
