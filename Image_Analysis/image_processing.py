@@ -5,8 +5,6 @@ def separate_pixel_maps(txt_images, n_raws):
     even_maps = []
     absor_maps = []
     phase_maps = []
-    
-    print("No problemo here ~~~~~ :D")
 
     for i in range(0, n_raws):
         if txt_images[i].shape[1] % 2 != 0:

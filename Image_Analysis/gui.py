@@ -113,7 +113,7 @@ class ImageAnalysisApp:
             self.pixel_maps = image_processing.separate_pixel_maps(txt_images, n_raws)
             self.pixels = txt_images[0].shape[0]
             self.reconstructed_maps = image_reconstruction.reconstruct_images(
-                self.pixel_maps[3], self.pixel_maps[2], self.pixel_maps[0], self.pixel_maps[1], pixels, n_raws
+                self.pixel_maps[0], self.pixel_maps[1], self.pixel_maps[2], self.pixel_maps[3], pixels, n_raws
             )
             messagebox.showinfo("Éxito", "Imágenes procesadas y reconstruidas correctamente.")
         except Exception as e:
