@@ -24,12 +24,22 @@ def separate_pixel_maps(txt_images, n_raws):
     
     return odd_maps, even_maps, absor_maps, phase_maps
 
-def compute_intensity_map(image, pixels):
-    intensity = np.zeros(pixels)
-    for i in range(0, pixels):
-        intensity += image[i, 0:pixels]
-    max_intensity = np.max(intensity)
-    if max_intensity == 0:
-        max_intensity = 1
-    mean = intensity/max_intensity
-    return mean
+def compute_intensity_map(images, pixels):
+    results = []
+    for image in images:
+        intensity = np.zeros(pixels)
+        for i in range(pixels):
+            intensity += image[i, 0:pixels]
+        max_intensity = np.max(intensity)
+        if max_intensity == 0:
+            max_intensity = 1
+        mean = intensity / max_intensity
+        results.append(mean)
+
+    return {
+        "Odd": results[0],
+        "Even": results[1],
+        "Absorption": results[2],
+        "Phase": results[3],
+        "Total": results[4]
+    }

@@ -2,7 +2,7 @@ import tkinter as tk
 from tkinter import filedialog, messagebox
 import customtkinter as ctk
 import matplotlib.pyplot as plt
-from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2Tk
 import numpy as np
 import data_loader
 import image_processing
@@ -13,10 +13,10 @@ class ImageAnalysisApp:
         self.root = root
         self.root.title("Image Analysis - EI-XPCI")
         self.root.configure(bg="#2E2E2E")  # Fondo oscuro
-
+    
         # Marco de opciones
         self.frame = tk.Frame(root, bg="#2E2E2E")
-        self.frame.pack(side=tk.LEFT, padx=10, pady=10)
+        self.frame.pack(side=tk.LEFT, padx=10, pady=10, fill=tk.Y)
 
         # Estilo de los textos y botones
         label_style = {"bg": "#2E2E2E", "fg": "#FFFFFF"}
@@ -29,25 +29,25 @@ class ImageAnalysisApp:
         self.entry_path_raw.grid(row=0, column=1)
         tk.Button(self.frame, text="Seleccionar", command=self.select_path_raw, **button_style).grid(row=0, column=2)
 
-        tk.Label(self.frame, text="Prefijo:", **label_style).grid(row=1, column=0)
+        tk.Label(self.frame, text="Carpeta TXT:", **label_style).grid(row=1, column=0)
+        self.entry_path_txt = tk.Entry(self.frame, width=30, **entry_style)
+        self.entry_path_txt.grid(row=1, column=1)
+        tk.Button(self.frame, text="Seleccionar", command=self.select_path_txt, **button_style).grid(row=1, column=2)
+
+        tk.Label(self.frame, text="Prefijo:", **label_style).grid(row=2, column=0)
         self.entry_prefix = tk.Entry(self.frame, width=30, **entry_style)
         self.entry_prefix.insert(0, "D")
-        self.entry_prefix.grid(row=1, column=1)
+        self.entry_prefix.grid(row=2, column=1)
 
-        tk.Label(self.frame, text="Tamaño de píxeles:", **label_style).grid(row=2, column=0)
+        tk.Label(self.frame, text="Tamaño de píxeles:", **label_style).grid(row=3, column=0)
         self.entry_pixels = tk.Entry(self.frame, width=30, **entry_style)
         self.entry_pixels.insert(0, "256")
-        self.entry_pixels.grid(row=2, column=1)
+        self.entry_pixels.grid(row=3, column=1)
 
-        tk.Label(self.frame, text="Número de imágenes:", **label_style).grid(row=3, column=0)
+        tk.Label(self.frame, text="Número de imágenes:", **label_style).grid(row=4, column=0)
         self.entry_n_raws = tk.Entry(self.frame, width=30, **entry_style)
         self.entry_n_raws.insert(0, "4")
-        self.entry_n_raws.grid(row=3, column=1)
-
-        tk.Label(self.frame, text="Carpeta TXT:", **label_style).grid(row=4, column=0)
-        self.entry_path_txt = tk.Entry(self.frame, width=30, **entry_style)
-        self.entry_path_txt.grid(row=4, column=1)
-        tk.Button(self.frame, text="Seleccionar", command=self.select_path_txt, **button_style).grid(row=4, column=2)
+        self.entry_n_raws.grid(row=4, column=1)
 
         # Botón para procesar imágenes
         self.btn_process = tk.Button(self.frame, text="Procesar Imágenes", command=self.process_images, **button_style)
@@ -55,12 +55,10 @@ class ImageAnalysisApp:
 
         # Dropdown para seleccionar el tipo de mapa
         self.map_options = ["Impares", "Pares", "Absorción", "Fase", "Total"]
-
         self.selected_map = tk.StringVar(value=self.map_options[0])
         tk.Label(self.frame, text="Seleccionar Mapa:", **label_style).grid(row=6, column=0)
         self.dropdown = tk.OptionMenu(self.frame, self.selected_map, *self.map_options)
         self.dropdown.grid(row=6, column=1)
-        self.dropdown.config(bg="#444444", fg="#FFFFFF")
 
         # Dropdown para seleccionar el colormap
         self.cmap_options = ["gray", "viridis", "plasma", "inferno", "magma", "cividis"]
@@ -70,24 +68,23 @@ class ImageAnalysisApp:
         self.cmap_dropdown.grid(row=7, column=1)
         self.cmap_dropdown.config(bg="#444444", fg="#FFFFFF")
 
-        # Botones para mostrar y guardar imágenes
-        self.btn_show = tk.Button(self.frame, text="Mostrar Imagen", command=self.show_image, **button_style)
+        # Botón para actualizar la visualización
+        self.btn_show = tk.Button(self.frame, text="Actualizar Visualización", command=self.update_plots, **button_style)
         self.btn_show.grid(row=8, column=0, columnspan=3, pady=5)
 
-        self.btn_intensity = tk.Button(self.frame, text="Curva Intensidad", command=self.show_intensity_curve, **button_style)
-        self.btn_intensity.grid(row=9, column=0, columnspan=3, pady=5)
-
-        self.btn_save = tk.Button(self.frame, text="Guardar Imagen", command=self.save_image, **button_style)
-        self.btn_save.grid(row=10, column=0, columnspan=3, pady=5)
-
-        # Espacio para la imagen
-        self.figure, self.ax = plt.subplots(figsize=(5, 5))
-        self.canvas = FigureCanvasTkAgg(self.figure, master=root)
+        # --- Sección de visualización de gráficos ---
+        self.fig, self.axs = plt.subplots(1, 2, figsize=(10, 5))
+        self.ax_map, self.ax_curve = self.axs
+        self.canvas = FigureCanvasTkAgg(self.fig, master=root)
         self.canvas.get_tk_widget().pack(side=tk.RIGHT, fill=tk.BOTH, expand=True)
+
+        # Barra de herramientas de matplotlib
+        self.toolbar = NavigationToolbar2Tk(self.canvas, root)
+        self.toolbar.update()
+        self.canvas.get_tk_widget().pack()
 
         self.pixel_maps = None  # Variable para los mapas procesados
         self.reconstructed_maps = None  # Mapas reconstruidos
-        self.pixels = None  # Tamaño de las imágenes
 
     def select_path_raw(self):
         self.entry_path_raw.delete(0, tk.END)
@@ -116,54 +113,38 @@ class ImageAnalysisApp:
             self.reconstructed_maps = image_reconstruction.reconstruct_images(
                 self.pixel_maps[0], self.pixel_maps[1], self.pixel_maps[2], self.pixel_maps[3], pixels, n_raws
             )
+            intensities = [self.reconstructed_maps["Odd"], self.reconstructed_maps["Even"], self.reconstructed_maps["Absorption"], self.reconstructed_maps["Phase"],
+                           self.reconstructed_maps["Total"]]
+            self.intensity_curves = image_processing.compute_intensity_map(intensities, pixels)
             messagebox.showinfo("Éxito", "Imágenes procesadas y reconstruidas correctamente.")
         except Exception as e:
             messagebox.showerror("Error", f"No se pudieron procesar las imágenes: {e}")
 
-    def show_image(self):
+    def update_plots(self):
         if self.reconstructed_maps is None:
             messagebox.showwarning("Advertencia", "Primero carga y reconstruye imágenes.")
             return
-        
-        map_translation = {
-            "Impares": "Odd",
-            "Pares": "Even",
-            "Absorción": "Absorption",
-            "Fase": "Phase",
-            "Total": "Total"
-        }
 
+        map_translation = {"Impares": "Odd", "Pares": "Even", "Absorción": "Absorption", "Fase": "Phase", "Total": "Total"}
         map_type = self.selected_map.get()
         image_map = self.reconstructed_maps.get(map_translation.get(map_type, ""), None)
-        
+
         if image_map is not None:
-            self.ax.clear()
+            self.ax_map.clear()
             cmap_selected = self.selected_cmap.get()
-            self.ax.imshow(image_map, cmap=cmap_selected)
-            self.ax.set_title(f"Mapa: {map_type}")
+            self.ax_map.imshow(image_map, cmap=cmap_selected)
+            self.ax_map.set_title(f"Mapa: {map_type}")
+
+            intensity_values = self.intensity_curves.get(map_translation.get(map_type, ""), None)
+            self.ax_curve.clear()
+            self.ax_curve.plot(intensity_values)
+            self.ax_curve.set_title("Curva de Intensidad")
+            self.ax_curve.set_xlabel("Píxeles")
+            self.ax_curve.set_ylabel("Intensidad")
+
             self.canvas.draw()
         else:
             messagebox.showwarning("Advertencia", "Mapa seleccionado no disponible.")
-    
-    def show_intensity_curve(self):
-        if self.reconstructed_maps is None:
-            messagebox.showwarning("Advertencia", "Primero carga y reconstruye imágenes.")
-            return
-        
-        intensity_values = np.mean(self.reconstructed_maps["Total"], axis=0)
-        
-        fig, ax = plt.subplots()
-        ax.plot(intensity_values)
-        ax.set_title("Curva de Intensidad")
-        ax.set_xlabel("Píxeles")
-        ax.set_ylabel("Intensidad")
-        plt.show()
-    
-    def save_image(self):
-        file_path = filedialog.asksaveasfilename(defaultextension=".png", filetypes=[("PNG files", "*.png")])
-        if file_path:
-            self.figure.savefig(file_path)
-            messagebox.showinfo("Éxito", "Imagen guardada correctamente.")
 
 if __name__ == "__main__":
     root = tk.Tk()
