@@ -1576,7 +1576,6 @@ if(fAcquisitionType=="doublemask"){
   
  return std::make_tuple(SubLogical, SubPhysical);
 }
-
 if(fAcquisitionType=="singlemask"){
     // - Build the substrate as a box
     G4Box* SubSolid = new G4Box(name,                               //its name
