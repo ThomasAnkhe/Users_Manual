@@ -1381,90 +1381,171 @@ G4cout<<"reading delta values from "<< FileName << G4endl;
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 std::tuple<G4LogicalVolume*,G4VPhysicalVolume*> PepiDetectorConstruction::CreateMask(G4String name, G4double mag, G4double pitch, G4double aperture, G4ThreeVector position, G4double thickness, G4Material* material, G4LogicalVolume* EnvelopeLogical, G4VPhysicalVolume* EnvelopePhysical)
 {
-
-  // - Build the MASK APERTURE UNIT as a Box
-  G4Box* MSolid =     new G4Box(name,                               //its name
-                          ((pitch-aperture)/mag)/2,   //its size
+  if(fAcquisitionType=="singlemask"){
+    // - Build the MASK APERTURE UNIT as a Box
+    G4Box* MSolid =     new G4Box(name,                               //its name
+                            ((pitch-aperture))/2,   //its size
+                            1.1*fPixiRadSizeY/2,
+                            thickness/2);
+  
+    G4String lvname = name+"LV";                   
+    G4LogicalVolume* MLogical = new G4LogicalVolume(MSolid,       //its solid
+                                     material,  //its material
+                                     lvname);        //its name
+  
+    // Build the MASK ENVELOPE 
+    G4String envname = "Envelope"+name;                     
+    G4Box* EnvelopeSolid =  new G4Box(envname,                  //its name                 
+                          (1.1*fPixiRadSizeX/mag)/2,              //its size
                           1.1*fPixiRadSizeY/2,
-                          thickness/2);
-
+                          thickness/2);        
+    G4String lvenvname = "Envelope"+name+"LV";                         
+    EnvelopeLogical =  new G4LogicalVolume(EnvelopeSolid,    //its solid
+                                              fWorldMaterial,      //its material
+                                              lvenvname);     //its name
+  
+    // - Place the physical copies of the mask aperture unit
+     G4int copy_no=0;  
+  
+      for (G4int iX = 0; iX < int(fnPixelsX*fPixelSizeX/pitch)+2; iX++)
+      {
+            
+        G4double x = + iX*pitch - ((fPixiRadSizeX)/2 + (pitch) + ((pitch))/2);
+        G4double y = 0;
+   // G4cout << "position \n" << x <<G4endl;
+        
+        G4ThreeVector px_position = G4ThreeVector(x, y, 0);
+        G4String  name1 = name + "_" + G4UIcommand::ConvertToString(copy_no);
+  
+        /*G4VPhysicalVolume* MPhysical =*/  new G4PVPlacement(0,                           //its rotation
+                                         px_position,                    //its position
+                                         MLogical,                  //its logical volume
+                                         name1,                        //its name
+                                         EnvelopeLogical,          //its mother volume
+                                         false,                       //no boolean operation
+                                         copy_no,                     //copy number
+                                         fCheckOverlaps);             //checking overlaps 
+        copy_no++;                              
+      }
+  
+    // - Place the Sample Mask Envelope in the World
+    EnvelopePhysical = new G4PVPlacement(0,                                                  //its rotation
+                                            position,   				      //its position
+                                            EnvelopeLogical,                                    //its logical volume
+                                            envname,                                       //its name
+                                            fWorldLogical,                                      //its mother volume
+                                            false,                                              //no boolean operation
+                                            0,                                                  //copy number
+                                            fCheckOverlaps);                                    //checking overlaps
+  
+  
+    G4Region* aRegion = new G4Region(name);
+    EnvelopeLogical->SetRegion(aRegion);
+    aRegion->AddRootLogicalVolume(EnvelopeLogical);
+    
+    
+  
+    G4VisAttributes* MVisAtt = new G4VisAttributes(G4Colour(0.8,0.6,0.));
+  //  M1VisAtt->SetForceWireframe(false);
+    MVisAtt->SetForceSolid(true);
+    MVisAtt->SetVisibility(true);
+    // pixelVisAtt->SetForceAuxEdgeVisible(true);
+    MLogical->SetVisAttributes(MVisAtt);
+  
+    G4VisAttributes* envelopeMVisAtt = new G4VisAttributes(G4Colour(1.0,0.,0.));
+  //  envelopeM1VisAtt->SetForceWireframe(false);
+    envelopeMVisAtt->SetForceSolid(true);
+    envelopeMVisAtt->SetVisibility(false);
+    envelopeMVisAtt->SetForceAuxEdgeVisible(false);
+    EnvelopeLogical->SetVisAttributes(envelopeMVisAtt);
+    
+    return std::make_tuple(EnvelopeLogical, EnvelopePhysical);  
+  }  
+  if(fAcquisitionType=="doublemask"){
+      // - Build the MASK APERTURE UNIT as a Box
+      G4Box* MSolid =     new G4Box(name,                               //its name
+        ((pitch-aperture)/mag)/2,   //its size
+        1.1*fPixiRadSizeY/2,
+        thickness/2);
+  
   G4String lvname = name+"LV";                   
   G4LogicalVolume* MLogical = new G4LogicalVolume(MSolid,       //its solid
-                                   material,  //its material
-                                   lvname);        //its name
-
+                 material,  //its material
+                 lvname);        //its name
+  
   // Build the MASK ENVELOPE 
   G4String envname = "Envelope"+name;                     
   G4Box* EnvelopeSolid =  new G4Box(envname,                  //its name                 
-                        (1.1*fPixiRadSizeX/mag)/2,              //its size
-                        1.1*fPixiRadSizeY/2,
-                        thickness/2);        
+      (1.1*fPixiRadSizeX/mag)/2,              //its size
+      1.1*fPixiRadSizeY/2,
+      thickness/2);        
   G4String lvenvname = "Envelope"+name+"LV";                         
   EnvelopeLogical =  new G4LogicalVolume(EnvelopeSolid,    //its solid
-                                            fWorldMaterial,      //its material
-                                            lvenvname);     //its name
-
+                          fWorldMaterial,      //its material
+                          lvenvname);     //its name
+  
   // - Place the physical copies of the mask aperture unit
-   G4int copy_no=0;  
-
-    for (G4int iX = 0; iX < int(fnPixelsX*fPixelSizeX/pitch)+2; iX++)
-    {
-          
-      G4double x = + iX*pitch/mag - ((fPixiRadSizeX/mag)/2 + (pitch)/mag + ((pitch)/mag)/2);
-      G4double y = 0;
- // G4cout << "position \n" << x <<G4endl;
-      
-      G4ThreeVector px_position = G4ThreeVector(x, y, 0);
-      G4String  name1 = name + "_" + G4UIcommand::ConvertToString(copy_no);
-
-      /*G4VPhysicalVolume* MPhysical =*/  new G4PVPlacement(0,                           //its rotation
-                                       px_position,                    //its position
-                                       MLogical,                  //its logical volume
-                                       name1,                        //its name
-                                       EnvelopeLogical,          //its mother volume
-                                       false,                       //no boolean operation
-                                       copy_no,                     //copy number
-                                       fCheckOverlaps);             //checking overlaps 
-      copy_no++;                              
-    }
-
+  G4int copy_no=0;  
+  
+  for (G4int iX = 0; iX < int(fnPixelsX*fPixelSizeX/pitch)+2; iX++)
+  {
+  
+  G4double x = + iX*pitch/mag - ((fPixiRadSizeX/mag)/2 + (pitch)/mag + ((pitch)/mag)/2);
+  G4double y = 0;
+  // G4cout << "position \n" << x <<G4endl;
+  
+  G4ThreeVector px_position = G4ThreeVector(x, y, 0);
+  G4String  name1 = name + "_" + G4UIcommand::ConvertToString(copy_no);
+  
+  /*G4VPhysicalVolume* MPhysical =*/  new G4PVPlacement(0,                           //its rotation
+                     px_position,                    //its position
+                     MLogical,                  //its logical volume
+                     name1,                        //its name
+                     EnvelopeLogical,          //its mother volume
+                     false,                       //no boolean operation
+                     copy_no,                     //copy number
+                     fCheckOverlaps);             //checking overlaps 
+  copy_no++;                              
+  }
+  
   // - Place the Sample Mask Envelope in the World
   EnvelopePhysical = new G4PVPlacement(0,                                                  //its rotation
-                                          position,   				      //its position
-                                          EnvelopeLogical,                                    //its logical volume
-                                          envname,                                       //its name
-                                          fWorldLogical,                                      //its mother volume
-                                          false,                                              //no boolean operation
-                                          0,                                                  //copy number
-                                          fCheckOverlaps);                                    //checking overlaps
-
-
+                        position,   				      //its position
+                        EnvelopeLogical,                                    //its logical volume
+                        envname,                                       //its name
+                        fWorldLogical,                                      //its mother volume
+                        false,                                              //no boolean operation
+                        0,                                                  //copy number
+                        fCheckOverlaps);                                    //checking overlaps
+  
+  
   G4Region* aRegion = new G4Region(name);
   EnvelopeLogical->SetRegion(aRegion);
   aRegion->AddRootLogicalVolume(EnvelopeLogical);
   
   
-
+  
   G4VisAttributes* MVisAtt = new G4VisAttributes(G4Colour(0.8,0.6,0.));
-//  M1VisAtt->SetForceWireframe(false);
+  //  M1VisAtt->SetForceWireframe(false);
   MVisAtt->SetForceSolid(true);
   MVisAtt->SetVisibility(true);
   // pixelVisAtt->SetForceAuxEdgeVisible(true);
   MLogical->SetVisAttributes(MVisAtt);
-
+  
   G4VisAttributes* envelopeMVisAtt = new G4VisAttributes(G4Colour(1.0,0.,0.));
-//  envelopeM1VisAtt->SetForceWireframe(false);
+  //  envelopeM1VisAtt->SetForceWireframe(false);
   envelopeMVisAtt->SetForceSolid(true);
   envelopeMVisAtt->SetVisibility(false);
   envelopeMVisAtt->SetForceAuxEdgeVisible(false);
   EnvelopeLogical->SetVisAttributes(envelopeMVisAtt);
   
   return std::make_tuple(EnvelopeLogical, EnvelopePhysical);  
-  
-}//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+  }  
+}
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 std::tuple<G4LogicalVolume*,G4VPhysicalVolume*> PepiDetectorConstruction::CreateSubstrate(G4String name, G4double mag, G4ThreeVector position, G4double thickness, G4Material* material, G4LogicalVolume* SubLogical, G4VPhysicalVolume* SubPhysical)
 {
-
+if(fAcquisitionType=="doublemask"){
   // - Build the substrate as a box
   G4Box* SubSolid = new G4Box(name,                               //its name
                           (1.2*fPixiRadSizeX/mag)/2,   //its size
@@ -1494,6 +1575,39 @@ std::tuple<G4LogicalVolume*,G4VPhysicalVolume*> PepiDetectorConstruction::Create
   SubLogical->SetVisAttributes(SubVisAtt);
   
  return std::make_tuple(SubLogical, SubPhysical);
+}
+
+if(fAcquisitionType=="singlemask"){
+    // - Build the substrate as a box
+    G4Box* SubSolid = new G4Box(name,                               //its name
+                            (1.2*fPixiRadSizeX)/2,   //its size
+                            (1.2*fPixiRadSizeY)/2,
+                            thickness/2);
+    G4String lvname = name + "LV";
+       
+    SubLogical = new G4LogicalVolume(SubSolid,       //its solid
+                                         material,    //its material
+                                         lvname);          //its name
+   
+  
+    SubPhysical = new G4PVPlacement(0,              //its rotation
+                                        position,       //its translation
+                                        SubLogical,      //its logical volume
+                                        name,              //its name
+                                        fWorldLogical,       //its mother volume
+                                        false,               //no boolean operation
+                                        0,                   //copy number
+                                        fCheckOverlaps);     //checking overlaps
+  
+    G4VisAttributes* SubVisAtt = new G4VisAttributes(G4Colour(0.5,0.5,0.5));
+  //  M1subVisAtt->SetForceWireframe(false);
+    SubVisAtt->SetForceSolid(true);
+    SubVisAtt->SetVisibility(true);
+    SubVisAtt->SetForceAuxEdgeVisible(false);
+    SubLogical->SetVisAttributes(SubVisAtt);
+    
+return std::make_tuple(SubLogical, SubPhysical);
+    }
 }  
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 void PepiDetectorConstruction::Move(G4String name, G4LogicalVolume* Logical, G4VPhysicalVolume* Physical, G4ThreeVector position, G4LogicalVolume* WLogical)
