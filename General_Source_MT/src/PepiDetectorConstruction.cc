@@ -728,7 +728,7 @@ void PepiDetectorConstruction::DefineMaterials()
   // ========================================
 
   fWorldMaterial    = Vacuum;
-  fIonCMaterial     = Air; // Vacuum
+  fIonCMaterial     = Vacuum; // Vacuum
   fDetectorMaterial = Silicon;
   fMaskMaterial     = Gold;
   fSubMaterial	    = Graphite;
