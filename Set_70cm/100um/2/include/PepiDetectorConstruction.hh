@@ -85,7 +85,7 @@ class PepiDetectorConstruction : public G4VUserDetectorConstruction
     void SetCheckOverlaps(G4bool);
     std::vector<double> LoadDelta(G4String);
     std::tuple<G4LogicalVolume*,G4VPhysicalVolume*> CreateMask(G4String, G4double, G4double, G4double, G4ThreeVector, G4double, G4Material*, G4LogicalVolume*, G4VPhysicalVolume*);
-    void Move(G4String, G4LogicalVolume*, G4VPhysicalVolume*, G4ThreeVector,G4LogicalVolume*);;
+    void Move(G4String, G4LogicalVolume*, G4VPhysicalVolume*, G4ThreeVector,G4LogicalVolume*);
     std::tuple<G4LogicalVolume*,G4VPhysicalVolume*> CreateSubstrate(G4String, G4double, G4ThreeVector, G4double, G4Material*, G4LogicalVolume*, G4VPhysicalVolume*);
     // Public Get Methods
     void GetNumberOfPixelsInDetector(G4int& nx, G4int& ny) const {nx = fnPixelsX; ny = fnPixelsY;};
