@@ -9,7 +9,7 @@
 #/control/macroPath ../spectra
 /control/execute ../spectra/28kV.in
 #/control/macroPath ../build
-/Pepi/cont/setBaseName Frame_1
+/Pepi/cont/setBaseName Frame_2
 /run/initialize
 
 /control/execute scorers.mac
