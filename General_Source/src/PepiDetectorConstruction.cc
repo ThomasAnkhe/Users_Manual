@@ -727,7 +727,7 @@ void PepiDetectorConstruction::DefineMaterials()
 
   fWorldMaterial    = Vacuum;
   fIonCMaterial     = Vacuum;
-  fDetectorMaterial = Silicon;
+  fDetectorMaterial = Silicon; // CdTe
   fMaskMaterial     = Gold;
   fSubMaterial	    = Graphite;
   fMuscleMaterial = PlexiGlass;
@@ -747,8 +747,7 @@ void PepiDetectorConstruction::DefineVolumes()
 
   fnPixelsX = 256;
 
-  // - The y-dimension of PixiRad changes if we want
-  // a bidimensional acquisition or not
+  // The y-dimension of PixiRad changes if we want a bidimensional acquisition or not.
 
   if (fBidimensional)
   {
@@ -759,9 +758,9 @@ void PepiDetectorConstruction::DefineVolumes()
     fnPixelsY = 1;
   }
 
-  fPixiRadSizeX = fPixelSizeX * fnPixelsX; // Size in the X axis of the detector (Pixel_Size_X * Number_Pixels_X)
-  fPixiRadSizeY = fPixelSizeY * fnPixelsY; // Size in the Y axis of the detector (Pixel_Size_Y * Number_Pixels_Y)
-  fPixiRadSizeZ = fPixelSizeZ; // Thickness of the detector.
+  fPixiRadSizeX = fPixelSizeX * fnPixelsX;      // Size in the X axis of the detector (Pixel_Size_X * Number_Pixels_X)
+  fPixiRadSizeY = fPixelSizeY * fnPixelsY;      // Size in the Y axis of the detector (Pixel_Size_Y * Number_Pixels_Y)
+  fPixiRadSizeZ = fPixelSizeZ;                  // Thickness of the detector.
 
   // ========================================
   //                  WORLD
@@ -774,18 +773,18 @@ void PepiDetectorConstruction::DefineVolumes()
                           fWorldSizeY/2,
                           fWorldSizeZ/2);          
    
-  fWorldLogical = new G4LogicalVolume(fWorldSolid,         //its solid
-                                      fWorldMaterial,      //its material
-                                      "World");            //its name
+  fWorldLogical = new G4LogicalVolume(fWorldSolid,         // Its solid
+                                      fWorldMaterial,      // Its material
+                                      "World");            // Itts name
                        
-  fWorldPhysical =  new G4PVPlacement(0,                   //no rotation
-                                      G4ThreeVector(),     //at (0,0,0)
-                                      fWorldLogical,       //its logical volume
-                                      "World",             //its name
-                                      0,                   //its mother  volume
-                                      false,               //no boolean operation
-                                      0,                   //copy number
-                                      fCheckOverlaps);     //checking overlaps 
+  fWorldPhysical =  new G4PVPlacement(0,                   // No rotation.
+                                      G4ThreeVector(),     // Positioning at (0,0,0).
+                                      fWorldLogical,       // Its logical volume.
+                                      "World",             // Its name.
+                                      0,                   // Its mother  volume.
+                                      false,               // No boolean operation.
+                                      0,                   // Copy number.
+                                      fCheckOverlaps);     // Checking Overlaps. 
 
 
   // ========================================
@@ -812,32 +811,33 @@ void PepiDetectorConstruction::DefineVolumes()
                                          fWorldMaterial,   //its material
                                          "PixiRad");       //its name
                     
-  // - Place the physical copies of the pixel in a x-y matrix
-  // The full detector is built from the top-left corner in
+  // Place the physical copies of the pixel in a x-y matrix.
+  // The full detector is built from the top-left corner in:
   // [*][*][*][*][*][*][*][*][*][*][*][*] #1 row (fnPixelsX long)
   // [*][*][*][*]........................ #2 row (fnPixelsX long)
   // ....................................
-  // .................................... # fnPixelsX * fnPixels Y
+  // .................................... # fnPixelsX * fnPixels Y.
+
   G4int copy_no=0;  
 
   for (G4int iY = 0; iY < fnPixelsY ; iY++)
   {
     for (G4int iX = 0; iX < fnPixelsX ; iX++)
     {
-      G4double x = + iX*fPixelSizeX - fPixiRadSizeX/2;// + fPixelSizeX/2;
-      G4double y = - iY*fPixelSizeY + fPixiRadSizeY/2;// - fPixelSizeY/2;
+      G4double x = + iX*fPixelSizeX - fPixiRadSizeX/2; // + fPixelSizeX/2;
+      G4double y = - iY*fPixelSizeY + fPixiRadSizeY/2; // - fPixelSizeY/2;
       
       G4ThreeVector position = G4ThreeVector(x, y, 0);
       G4String  name = "Pixel_" + G4UIcommand::ConvertToString(copy_no);
 
-      fPixelPhysical =  new G4PVPlacement(0,                           //its rotation
-                                          position,                    //its position
-                                          fPixelLogical,               //its logical volume
-                                          name,                        //its name
-                                          fPixiRadLogical,             //its mother volume
-                                          false,                       //no boolean operation
-                                          copy_no,                     //copy number
-                                          fCheckOverlaps);             //checking overlaps 
+      fPixelPhysical =  new G4PVPlacement(0,                           // Its rotation.
+                                          position,                    // Its position.
+                                          fPixelLogical,               // Its logical volume.
+                                          name,                        // Its name.
+                                          fPixiRadLogical,             // Its mother volume.
+                                          false,                       // No boolean operation.
+                                          copy_no,                     // Copy number.
+                                          fCheckOverlaps);             // Checking Overlaps. 
 
       copy_no++;                              
     }
@@ -845,14 +845,14 @@ void PepiDetectorConstruction::DefineVolumes()
 
   // - Place the Detector Envelope in the World
   G4ThreeVector positionPixirad = G4ThreeVector(0, 0, fSourcePosZ+fSrcObjDistance+fObjectDetDistance);
-  fPixiRadPhysical = new G4PVPlacement(0,                                                  //its rotation
-                                       positionPixirad,					   //its position
-                                       fPixiRadLogical,                                    //its logical volume
-                                       "PixiRad",                                          //its name
-                                       fWorldLogical,                                      //its mother volume
-                                       false,                                              //no boolean operation
-                                       0,                                                  //copy number
-                                       fCheckOverlaps);                                    //checking overlaps
+  fPixiRadPhysical = new G4PVPlacement(0,                                                  // Its rotation.
+                                       positionPixirad,					                           // Its position.
+                                       fPixiRadLogical,                                    // Its logical volume.
+                                       "PixiRad",                                          // Its name.
+                                       fWorldLogical,                                      // Its mother volume.
+                                       false,                                              // No boolean operation.
+                                       0,                                                  // Copy number.
+                                       fCheckOverlaps);                                    // Checking Overlaps.
 
 
   G4Region* aRegion = new G4Region("PixiRad");
@@ -948,24 +948,24 @@ if (fAcquisitionType=="doublemask"|| fAcquisitionType=="singlemask")
 
 // - Build the ION CHAMBER as an unrotated Box, this is in charge of checking if there are counts infront of the detector.
   
-fIonCSolid = new G4Box("IonChamber",                     //its name
-                        fPixiRadSizeX/2,                            //its size
-                        fPixiRadSizeY/2,
+fIonCSolid = new G4Box("IonChamber",                     // Its name
+                        fPixiRadSizeX/2,                 // Its xy -
+                        fPixiRadSizeY/2,                 // - dimensions.
                         2*mm);          
   
-fIonCLogical = new G4LogicalVolume(fIonCSolid,          //its solid
-                                    fIonCMaterial,       //its material
-                                    "IonChamberLV");     //its name
+fIonCLogical = new G4LogicalVolume(fIonCSolid,           // Its solid.
+                                    fIonCMaterial,       // Its material.
+                                    "IonChamberLV");     // Its name.
                       
 G4ThreeVector IOCposition = positionPixirad - G4ThreeVector(0, 0, 10*mm);
-fIonCPhysical =  new G4PVPlacement(0,                   //no rotation
-                                    IOCposition,            //at position
-                                    fIonCLogical,        //its logical volume
-                                    "IonChamber",        //its name
-                                    fWorldLogical,       //its mother  volume
-                                    false,               //no boolean operation
-                                    0,                   //copy number
-                                    fCheckOverlaps);     //checking overlaps 
+fIonCPhysical =  new G4PVPlacement(0,                    // No rotation.
+                                    IOCposition,         // Its position.
+                                    fIonCLogical,        // Its logical volume.
+                                    "IonChamber",        // Its name.
+                                    fWorldLogical,       // Its mother volume.
+                                    false,               // No boolean operation.
+                                    0,                   // Copy number.
+                                    fCheckOverlaps);     // Checking Overlaps. 
   
   
 // ========================================
@@ -1110,7 +1110,6 @@ void PepiDetectorConstruction::DefineDetectors()
   G4MultiFunctionalDetector* ionChamberSD = new G4MultiFunctionalDetector("IonChamberSD");
   pSDMan->AddNewDetector(ionChamberSD);
   SetSensitiveDetector("IonChamberLV",ionChamberSD);
-
   // - Ion Chamber scores the number of photons that enter its surface
   // Surface is defined at the -Z surface.
   // Direction                  -Z   +Z
