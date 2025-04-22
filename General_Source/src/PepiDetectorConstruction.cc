@@ -773,9 +773,9 @@ void PepiDetectorConstruction::DefineVolumes()
                           fWorldSizeY/2,
                           fWorldSizeZ/2);          
    
-  fWorldLogical = new G4LogicalVolume(fWorldSolid,         // Its solid
-                                      fWorldMaterial,      // Its material
-                                      "World");            // Itts name
+  fWorldLogical = new G4LogicalVolume(fWorldSolid,         // Its solid.
+                                      fWorldMaterial,      // Its material.
+                                      "World");            // Its name.
                        
   fWorldPhysical =  new G4PVPlacement(0,                   // No rotation.
                                       G4ThreeVector(),     // Positioning at (0,0,0).
@@ -792,24 +792,24 @@ void PepiDetectorConstruction::DefineVolumes()
   // ========================================
 
   // - Build the DETECTOR PIXEL UNIT as a Box
-  fPixelSolid = new G4Box("Pixel",                          //its name
-                          fPixelSizeX/2,                    //its size
-                          fPixelSizeY/2,
+  fPixelSolid = new G4Box("Pixel",                          // Its name.
+                          fPixelSizeX/2,                    // Its xyz -
+                          fPixelSizeY/2,                    // - dimensions.
                           fPixelSizeZ/2);
                      
-  fPixelLogical = new G4LogicalVolume(fPixelSolid,          //its solid
-                                      fDetectorMaterial,    //its material
-                                      "PixelLV");           //its name
+  fPixelLogical = new G4LogicalVolume(fPixelSolid,          // Its solid.
+                                      fDetectorMaterial,    // Its material.
+                                      "PixelLV");           // Its name.
 
   // Build the Detector Envelope 
-  fPixiRadSolid =  new G4Box("PixiRad",                    //its name                 
-                             fPixiRadSizeX/2,              //its size
-                             fPixiRadSizeY/2,
+  fPixiRadSolid =  new G4Box("PixiRad",                    // Its name.                 
+                             fPixiRadSizeX/2,              // Its xyz -
+                             fPixiRadSizeY/2,              // - dimensions.
                              fPixiRadSizeZ/2);        
       
-  fPixiRadLogical =  new G4LogicalVolume(fPixiRadSolid,    //its solid
-                                         fWorldMaterial,   //its material
-                                         "PixiRad");       //its name
+  fPixiRadLogical =  new G4LogicalVolume(fPixiRadSolid,    // Its solid.
+                                         fWorldMaterial,   // Its material.
+                                         "PixiRad");       // Its name.
                     
   // Place the physical copies of the pixel in a x-y matrix.
   // The full detector is built from the top-left corner in:
