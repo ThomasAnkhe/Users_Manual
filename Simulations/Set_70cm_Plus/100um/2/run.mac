@@ -16,7 +16,7 @@
 
 #/run/printProgress 1000000
 
-/Pepi/cont/beamOn 5000000000
-/score/dumpQuantityToFile Mesh1 dose dose_28kVInLine2_.out
-#/score/dumpQuantityToFile Mesh2 dose dose_40_Rh.out
+/Pepi/cont/beamOn 2000000000
+/Pepi/cont/beamOn 2000000000
+/Pepi/cont/beamOn 1000000000
 #/score/dumpQuantityToFile Mesh2 protonCellFlux protonCellFlux_2.out
