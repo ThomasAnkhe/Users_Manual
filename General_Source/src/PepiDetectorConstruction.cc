@@ -894,7 +894,7 @@ fMusclePhysical = new G4PVPlacement(0, objectPositionCube, fMuscleLogical, "Cube
 
 fWaxInsertSolid = new G4Box("Wax", 5*cm/2, 5*cm/2, 7.25*mm/2);
 fWaxInsertLogical = new G4LogicalVolume(fWaxInsertSolid, fWaxInsertMaterial, "WaxLV");
-G4ThreeVector objectPositionWax = G4ThreeVector(0*mm, 0, 3.375*cm);
+G4ThreeVector objectPositionWax = G4ThreeVector(0*mm, 0, 3.375*cm/2);
 fWaxInsertPhysical = new G4PVPlacement(0, objectPositionWax, fWaxInsertLogical, "Wax", fMuscleLogical, false, 0, fCheckOverlaps);
 
 // ------------------------------------------------------
@@ -936,7 +936,7 @@ if (fAcquisitionType=="doublemask"|| fAcquisitionType=="singlemask")
   {
   G4double mag_M1 = (fSrcObjDistance + fObjectDetDistance)/(fSrcObjDistance - (fMaskThickness/2 + fObjSizeR)); // Magnification of Mask 1.
   G4double rel_mag_ = fSrcObjDistance/(fSrcObjDistance - (fMaskThickness + 2*(fObjSizeR))/2);
-  G4ThreeVector M1Position = G4ThreeVector(fTrans/rel_mag_, 0, fSourcePosZ + fSrcObjDistance) - G4ThreeVector(0, 0, (fMaskThickness + 2*(fObjSizeR))/2);
+  G4ThreeVector M1Position = G4ThreeVector(fTrans/rel_mag_, 0, fSourcePosZ + fSrcObjDistance) - G4ThreeVector(0, 0, (fMaskThickness + fObjSizeR)/2);
   
   std::tie(fEnvelopeM1Logical,fEnvelopeM1Physical) = CreateMask("M1", mag_M1, fM2Pitch, fM2Aperture, M1Position, fMaskThickness, fMaskMaterial, fEnvelopeM1Logical, fEnvelopeM1Physical);
   std::tie(fM1subLogical,fM1subPhysical) = CreateSubstrate("M1sub", mag_M1, M1Position - G4ThreeVector(0,0,fSubThickness/2 + fMaskThickness/2), fSubThickness, fSubMaterial, fM1subLogical,fM1subPhysical);
