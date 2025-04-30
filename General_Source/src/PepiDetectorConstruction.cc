@@ -228,7 +228,7 @@ PepiDetectorConstruction::PepiDetectorConstruction()
 
   // Modified Start
 
-  fObjSizeR = 4.4*cm;
+  fObjSizeR = 2.2*cm; // sample half-thickness
   fObjSizeY = 6.12*cm;  
 
   // Modified Finish
@@ -885,7 +885,7 @@ if (fAcquisitionType=="doublemask")
 
  // Muscle Mimic
 
-fMuscleSolid = new G4Box("Cube", 6.05*cm/2, 6.2*cm/2, 4.4*cm/2);
+fMuscleSolid = new G4Box("Cube", 6.05*cm/2, 6.2*cm/2, fObjSizeR);
 fMuscleLogical = new G4LogicalVolume(fMuscleSolid, fMuscleMaterial, "CubeLV");
 G4ThreeVector objectPositionCube = G4ThreeVector(0*mm, 0, fSourcePosZ+fSrcObjDistance);
 fMusclePhysical = new G4PVPlacement(0, objectPositionCube, fMuscleLogical, "Cube", fWorldLogical, false, 0, fCheckOverlaps);
@@ -936,7 +936,7 @@ if (fAcquisitionType=="doublemask"|| fAcquisitionType=="singlemask")
   {
   G4double mag_M1 = (fSrcObjDistance + fObjectDetDistance)/(fSrcObjDistance - (fMaskThickness/2 + fObjSizeR)); // Magnification of Mask 1.
   G4double rel_mag_ = fSrcObjDistance/(fSrcObjDistance - (fMaskThickness + 2*(fObjSizeR))/2);
-  G4ThreeVector M1Position = G4ThreeVector(fTrans/rel_mag_, 0, fSourcePosZ + fSrcObjDistance) - G4ThreeVector(0, 0, (fMaskThickness + fObjSizeR)/2);
+  G4ThreeVector M1Position = G4ThreeVector(fTrans/rel_mag_, 0, fSourcePosZ + fSrcObjDistance) - G4ThreeVector(0, 0, (fMaskThickness + 2*(fObjSizeR))/2);
   
   std::tie(fEnvelopeM1Logical,fEnvelopeM1Physical) = CreateMask("M1", mag_M1, fM2Pitch, fM2Aperture, M1Position, fMaskThickness, fMaskMaterial, fEnvelopeM1Logical, fEnvelopeM1Physical);
   std::tie(fM1subLogical,fM1subPhysical) = CreateSubstrate("M1sub", mag_M1, M1Position - G4ThreeVector(0,0,fSubThickness/2 + fMaskThickness/2), fSubThickness, fSubMaterial, fM1subLogical,fM1subPhysical);
