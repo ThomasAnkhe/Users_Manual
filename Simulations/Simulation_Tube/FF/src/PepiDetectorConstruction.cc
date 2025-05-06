@@ -228,7 +228,8 @@ PepiDetectorConstruction::PepiDetectorConstruction()
 
   // Modified Start
 
-  fObjSizeR = 2.2*cm; // sample half-thickness
+  //fObjSizeR = 1.1*cm; // sample half-thickness
+  fObjSizeR = 2*mm; // sample half-thickness
   fObjSizeY = 6.12*cm;  
 
   // Modified Finish
@@ -894,8 +895,35 @@ if (fAcquisitionType=="doublemask")
 
 //fWaxInsertSolid = new G4Box("Wax", 5*cm/2, 5*cm/2, 7.25*mm/2);
 //fWaxInsertLogical = new G4LogicalVolume(fWaxInsertSolid, fWaxInsertMaterial, "WaxLV");
-//G4ThreeVector objectPositionWax = G4ThreeVector(0*mm, 0, 3.375*cm/2);
+//G4ThreeVector objectPositionWax = G4ThreeVector(0*mm, 0, 3.375*cm/4);
 //fWaxInsertPhysical = new G4PVPlacement(0, objectPositionWax, fWaxInsertLogical, "Wax", fMuscleLogical, false, 0, fCheckOverlaps);
+
+// ------------------------------------------------------
+
+// Nylon Fyber
+
+//G4RotationMatrix* rotMat4 =  new G4RotationMatrix();
+  //rotMat4->rotateX(90*deg);
+
+  //G4RotationMatrix* rot =  new G4RotationMatrix();
+  //rot->rotateX(0*deg);
+
+//fSphere2Solid = new G4Tubs("Tube", 1*mm, fObjSizeR, 2.5*cm, 0, 2*pi);
+
+//fSphere2Logical = new G4LogicalVolume(fSphere2Solid,fMicroSphereMaterial,"TubeLV");
+
+//G4ThreeVector objectPositionTube = G4ThreeVector(0, 0, fSourcePosZ+fSrcObjDistance);
+
+// G4ThreeVector objectPositionTube = G4ThreeVector(0*mm, 0, 0);
+
+//fSphere2Physical = new G4PVPlacement(rotMat4,              //its rotation
+                                      //objectPositionTube,       //its translation
+                                      //fSphere2Logical,      //its logical volume
+                                      //"Tube",              //its name
+                                      //fWorldLogical,       //its mother volume
+                                      //false,               //no boolean operation
+                                      //0,                   //copy number
+                                      //fCheckOverlaps);     //checking overlaps      
 
 // ------------------------------------------------------
 
@@ -999,13 +1027,17 @@ fIonCPhysical =  new G4PVPlacement(0,                    // No rotation.
 //                        VISUALIZATION OF THE PHANTOM
 // ================================================================================
   
-  //G4VisAttributes* tubeVisAtt = new G4VisAttributes(G4Colour(0.6,0.8,1.0,0.5));
-  //tubeVisAtt->SetForceSolid(true);
-  //fMuscleLogical->SetVisAttributes(tubeVisAtt);
+  //G4VisAttributes* cubeVisAtt = new G4VisAttributes(G4Colour(0.6,0.8,1.0,0.5));
+  //cubeVisAtt->SetForceSolid(true);
+  //fMuscleLogical->SetVisAttributes(cubeVisAtt);
 
   //G4VisAttributes* waxVisAtt = new G4VisAttributes(G4Colour(1,0.75,0.79,0.5));
   //waxVisAtt->SetForceSolid(true);
   //fWaxInsertLogical->SetVisAttributes(waxVisAtt);
+
+  //G4VisAttributes* TubeVisAtt = new G4VisAttributes(G4Colour(1, 1, 1.0, 1.0));
+  //TubeVisAtt->SetForceSolid(true);
+  //fSphere2Logical->SetVisAttributes(TubeVisAtt);
 
   // ------------------------------------------------------
   
@@ -1300,6 +1332,11 @@ void PepiDetectorConstruction::SetBidimensionalAcquisition(G4bool bidimensional)
 
 void PepiDetectorConstruction::SetEIMovements(G4double trans, G4double dith, G4double rotAngle)
 {
+  G4RotationMatrix* rotMat4 =  new G4RotationMatrix();
+  rotMat4->rotateX(90*deg);
+
+  G4RotationMatrix* rot =  new G4RotationMatrix();
+  rot->rotateX(0*deg);
   // This function uses the values that are defined in the "geometry_config.in" file. It has three numbers separated by a space.
   // The first one is the translation value in micrometers (um), the second one is the dithering step in micrometers (um) and the third
   // one is a rotation angle. 
@@ -1314,27 +1351,32 @@ void PepiDetectorConstruction::SetEIMovements(G4double trans, G4double dith, G4d
 
   // - Object 1 - Phantom -
   //G4ThreeVector position1 = G4ThreeVector(fTrans + fDith, 0, fSourcePosZ+fSrcObjDistance);
-  //Move("tube2", fMuscleLogical, fMusclePhysical, position1, fWorldLogical);
+  //Move("Cube", fMuscleLogical, fMusclePhysical, position1, fWorldLogical, rot);
 
   // - Object 2 - Wax -
   //G4ThreeVector position2 = G4ThreeVector(fTrans + fDith, 0, 3.375*cm);
-  //Move("Wax", fWaxInsertLogical, fWaxInsertPhysical, position2, fMuscleLogical);
+  //Move("Wax", fWaxInsertLogical, fWaxInsertPhysical, position2, fMuscleLogical, rot);
 
   // - Object 3 - Sphere -
   //G4ThreeVector position3 = G4ThreeVector(fTrans + fDith + 1*mm, 1*mm, 0);
-  //Move("Sphere", fMicroSphereLogical, fMicroSpherePhysical, position3, fWaxInsertLogical);
+  //Move("Sphere", fMicroSphereLogical, fMicroSpherePhysical, position3, fWaxInsertLogical, rot);
 
   // - Object 4 - Sphere1 -
   //G4ThreeVector position4 = G4ThreeVector(fTrans + fDith + 1*mm, -1*mm, 0);
-  //Move("Sphere1", fMicroSphereLogical1, fMicroSpherePhysical1, position4, fWaxInsertLogical);
+  //Move("Sphere1", fMicroSphereLogical1, fMicroSpherePhysical1, position4, fWaxInsertLogical, rot);
   
   // - Object 5 - Sphere2 -
   //G4ThreeVector position5 = G4ThreeVector(fTrans + fDith - 1*mm, -1*mm, 0);
-  //Move("Sphere2", fMicroSphereLogical2, fMicroSpherePhysical2, position5, fWaxInsertLogical);
+  //Move("Sphere2", fMicroSphereLogical2, fMicroSpherePhysical2, position5, fWaxInsertLogical, rot);
 
   // - Object 6 - Sphere3 -
   //G4ThreeVector position6 = G4ThreeVector(fTrans + fDith - 1*mm, 1*mm, 0);
-  //Move("Sphere2", fMicroSphereLogical3, fMicroSpherePhysical3, position6, fWaxInsertLogical);
+  //Move("Sphere3", fMicroSphereLogical3, fMicroSpherePhysical3, position6, fWaxInsertLogical, rot);
+
+  // - Object 7 - Nylon Tube
+
+  //G4ThreeVector position7 = G4ThreeVector(fTrans + fDith, 0, fSourcePosZ+fSrcObjDistance);
+  //Move("Tube", fSphere2Logical, fSphere2Physical, position7, fWorldLogical, rotMat4);
 
   G4cout<<"Sample translated to " << (fTrans+fDith)/um << " um" <<G4endl;
   
@@ -1344,8 +1386,8 @@ void PepiDetectorConstruction::SetEIMovements(G4double trans, G4double dith, G4d
  // - Translation Sample Mask M1 and substrate -:
   G4double rel_mag = fSrcObjDistance/(fSrcObjDistance - (fMaskThickness+2*(fObjSizeR))/2);
   G4ThreeVector position = G4ThreeVector(fTrans/rel_mag, 0, fSourcePosZ + fSrcObjDistance - (fMaskThickness + 2*(fObjSizeR))/2);
-  Move("EnvelopeM1", fEnvelopeM1Logical, fEnvelopeM1Physical, position, fWorldLogical);
-  Move("M1sub", fM1subLogical, fM1subPhysical, position-G4ThreeVector(0,0, fSubThickness/2 + fMaskThickness/2), fWorldLogical);
+  Move("EnvelopeM1", fEnvelopeM1Logical, fEnvelopeM1Physical, position, fWorldLogical,rot);
+  Move("M1sub", fM1subLogical, fM1subPhysical, position-G4ThreeVector(0,0, fSubThickness/2 + fMaskThickness/2), fWorldLogical,rot);
  
   // - Print to confirm the pre-sample mask translation - :  
   G4cout<<"Sample Mask translated to " << fTrans/rel_mag/um << " um" << G4endl;
@@ -1563,11 +1605,11 @@ std::tuple<G4LogicalVolume*,G4VPhysicalVolume*> PepiDetectorConstruction::Create
 //                    MASK'S LATERAL TRANSLATION FUNCTION
 // ================================================================================
 
-void PepiDetectorConstruction::Move(G4String name, G4LogicalVolume* Logical, G4VPhysicalVolume* Physical, G4ThreeVector position, G4LogicalVolume* WLogical)
+void PepiDetectorConstruction::Move(G4String name, G4LogicalVolume* Logical, G4VPhysicalVolume* Physical, G4ThreeVector position, G4LogicalVolume* WLogical, G4RotationMatrix* rotmat)
 {
   Logical->RemoveDaughter(Physical);
   delete Physical;
-  Physical = new G4PVPlacement(0,                // The object rotation.
+  Physical = new G4PVPlacement(rotmat,                // The object rotation.
                               position,   			 // Its position.
                               Logical,           // Its logical volume.
                               name,              // Its name.
