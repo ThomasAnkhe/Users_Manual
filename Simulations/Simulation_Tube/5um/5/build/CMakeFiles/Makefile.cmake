@@ -18,6 +18,7 @@ set(CMAKE_MAKEFILE_DEPENDS
   "../run.mac"
   "../scorers.mac"
   "../vis.mac"
+<<<<<<< HEAD
   "/usr/local/HEP/GATE/geant4.10.06.p01-install/lib/Geant4-10.6.1/G4EXPATShim.cmake"
   "/usr/local/HEP/GATE/geant4.10.06.p01-install/lib/Geant4-10.6.1/G4X11Shim.cmake"
   "/usr/local/HEP/GATE/geant4.10.06.p01-install/lib/Geant4-10.6.1/Geant4Config.cmake"
@@ -46,10 +47,27 @@ set(CMAKE_MAKEFILE_DEPENDS
   "/usr/share/cmake-3.16/Modules/CMakeDetermineCompilerId.cmake"
   "/usr/share/cmake-3.16/Modules/CMakeDetermineSystem.cmake"
   "/usr/share/cmake-3.16/Modules/CMakeFindBinUtils.cmake"
+=======
+  "/usr/local/GATE/geant4.10.06.p01-install/lib/Geant4-10.6.1/G4EXPATShim.cmake"
+  "/usr/local/GATE/geant4.10.06.p01-install/lib/Geant4-10.6.1/G4X11Shim.cmake"
+  "/usr/local/GATE/geant4.10.06.p01-install/lib/Geant4-10.6.1/Geant4Config.cmake"
+  "/usr/local/GATE/geant4.10.06.p01-install/lib/Geant4-10.6.1/Geant4ConfigVersion.cmake"
+  "/usr/local/GATE/geant4.10.06.p01-install/lib/Geant4-10.6.1/Geant4LibraryDepends-release.cmake"
+  "/usr/local/GATE/geant4.10.06.p01-install/lib/Geant4-10.6.1/Geant4LibraryDepends.cmake"
+  "/usr/local/GATE/geant4.10.06.p01-install/lib/Geant4-10.6.1/Geant4PackageCache.cmake"
+  "/usr/local/GATE/geant4.10.06.p01-install/lib/Geant4-10.6.1/Modules/IntelCompileFeatures.cmake"
+  "/usr/local/GATE/geant4.10.06.p01-install/lib/Geant4-10.6.1/Modules/MSVCCompileFeatures.cmake"
+  "/usr/local/GATE/geant4.10.06.p01-install/lib/Geant4-10.6.1/UseGeant4.cmake"
+  "/usr/share/cmake-3.16/Modules/CMakeCInformation.cmake"
+  "/usr/share/cmake-3.16/Modules/CMakeCXXInformation.cmake"
+  "/usr/share/cmake-3.16/Modules/CMakeCheckCompilerFlagCommonPatterns.cmake"
+  "/usr/share/cmake-3.16/Modules/CMakeCommonLanguageInclude.cmake"
+>>>>>>> 7ee9b88fe1939067061c361e33f5cd86dd71a15e
   "/usr/share/cmake-3.16/Modules/CMakeFindDependencyMacro.cmake"
   "/usr/share/cmake-3.16/Modules/CMakeGenericSystem.cmake"
   "/usr/share/cmake-3.16/Modules/CMakeInitializeConfigs.cmake"
   "/usr/share/cmake-3.16/Modules/CMakeLanguageInformation.cmake"
+<<<<<<< HEAD
   "/usr/share/cmake-3.16/Modules/CMakeParseImplicitIncludeInfo.cmake"
   "/usr/share/cmake-3.16/Modules/CMakeParseImplicitLinkInfo.cmake"
   "/usr/share/cmake-3.16/Modules/CMakePushCheckState.cmake"
@@ -113,6 +131,19 @@ set(CMAKE_MAKEFILE_DEPENDS
   "/usr/share/cmake-3.16/Modules/Compiler/XLClang-CXX-DetermineCompiler.cmake"
   "/usr/share/cmake-3.16/Modules/Compiler/zOS-C-DetermineCompiler.cmake"
   "/usr/share/cmake-3.16/Modules/Compiler/zOS-CXX-DetermineCompiler.cmake"
+=======
+  "/usr/share/cmake-3.16/Modules/CMakePushCheckState.cmake"
+  "/usr/share/cmake-3.16/Modules/CMakeSystemSpecificInformation.cmake"
+  "/usr/share/cmake-3.16/Modules/CMakeSystemSpecificInitialize.cmake"
+  "/usr/share/cmake-3.16/Modules/CheckCXXSymbolExists.cmake"
+  "/usr/share/cmake-3.16/Modules/CheckFunctionExists.cmake"
+  "/usr/share/cmake-3.16/Modules/CheckLibraryExists.cmake"
+  "/usr/share/cmake-3.16/Modules/CheckSymbolExists.cmake"
+  "/usr/share/cmake-3.16/Modules/Compiler/CMakeCommonCompilerMacros.cmake"
+  "/usr/share/cmake-3.16/Modules/Compiler/GNU-C.cmake"
+  "/usr/share/cmake-3.16/Modules/Compiler/GNU-CXX.cmake"
+  "/usr/share/cmake-3.16/Modules/Compiler/GNU.cmake"
+>>>>>>> 7ee9b88fe1939067061c361e33f5cd86dd71a15e
   "/usr/share/cmake-3.16/Modules/FindEXPAT.cmake"
   "/usr/share/cmake-3.16/Modules/FindFontconfig.cmake"
   "/usr/share/cmake-3.16/Modules/FindFreetype.cmake"
@@ -123,9 +154,13 @@ set(CMAKE_MAKEFILE_DEPENDS
   "/usr/share/cmake-3.16/Modules/FindQt4.cmake"
   "/usr/share/cmake-3.16/Modules/FindX11.cmake"
   "/usr/share/cmake-3.16/Modules/Internal/CMakeCheckCompilerFlag.cmake"
+<<<<<<< HEAD
   "/usr/share/cmake-3.16/Modules/Internal/FeatureTesting.cmake"
   "/usr/share/cmake-3.16/Modules/MacroAddFileDependencies.cmake"
   "/usr/share/cmake-3.16/Modules/Platform/Linux-Determine-CXX.cmake"
+=======
+  "/usr/share/cmake-3.16/Modules/MacroAddFileDependencies.cmake"
+>>>>>>> 7ee9b88fe1939067061c361e33f5cd86dd71a15e
   "/usr/share/cmake-3.16/Modules/Platform/Linux-GNU-C.cmake"
   "/usr/share/cmake-3.16/Modules/Platform/Linux-GNU-CXX.cmake"
   "/usr/share/cmake-3.16/Modules/Platform/Linux-GNU.cmake"
@@ -144,11 +179,14 @@ set(CMAKE_MAKEFILE_OUTPUTS
 
 # Byproducts of CMake generate step:
 set(CMAKE_MAKEFILE_PRODUCTS
+<<<<<<< HEAD
   "CMakeFiles/3.16.3/CMakeSystem.cmake"
   "CMakeFiles/3.16.3/CMakeCCompiler.cmake"
   "CMakeFiles/3.16.3/CMakeCXXCompiler.cmake"
   "CMakeFiles/3.16.3/CMakeCCompiler.cmake"
   "CMakeFiles/3.16.3/CMakeCXXCompiler.cmake"
+=======
+>>>>>>> 7ee9b88fe1939067061c361e33f5cd86dd71a15e
   "init_vis.mac"
   "run.mac"
   "detmask_config.in"

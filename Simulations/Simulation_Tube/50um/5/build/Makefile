@@ -48,10 +48,17 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
+<<<<<<< HEAD
 CMAKE_SOURCE_DIR = /home/j.guzmanm/Simulation_Tube/50um/5
 
 # The top-level build directory on which CMake was run.
 CMAKE_BINARY_DIR = /home/j.guzmanm/Simulation_Tube/50um/5/build
+=======
+CMAKE_SOURCE_DIR = /home/t.andrade/F1
+
+# The top-level build directory on which CMake was run.
+CMAKE_BINARY_DIR = /home/t.andrade/F1/build
+>>>>>>> 7ee9b88fe1939067061c361e33f5cd86dd71a15e
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -126,9 +133,15 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
+<<<<<<< HEAD
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/j.guzmanm/Simulation_Tube/50um/5/build/CMakeFiles /home/j.guzmanm/Simulation_Tube/50um/5/build/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/j.guzmanm/Simulation_Tube/50um/5/build/CMakeFiles 0
+=======
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/t.andrade/F1/build/CMakeFiles /home/t.andrade/F1/build/CMakeFiles/progress.marks
+	$(MAKE) -f CMakeFiles/Makefile2 all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/t.andrade/F1/build/CMakeFiles 0
+>>>>>>> 7ee9b88fe1939067061c361e33f5cd86dd71a15e
 .PHONY : all
 
 # The main clean target

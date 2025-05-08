@@ -17,7 +17,11 @@
 /Pepi/det/setM2Pitch 79 um
 /Pepi/det/setM2Aperture 10 um
 #/Pepi/det/setRotAngle 90 deg
+<<<<<<< HEAD
 /Pepi/det/setAcquisitionType conventional
+=======
+/Pepi/det/setAcquisitionType singlemask
+>>>>>>> 7ee9b88fe1939067061c361e33f5cd86dd71a15e
 /Pepi/det/setDetType 2COL
 /Pepi/det/setThreshold1 10 keV
 /Pepi/det/setThreshold2 30 keV

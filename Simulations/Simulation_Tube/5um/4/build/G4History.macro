@@ -5,7 +5,11 @@
 /gps/particle gamma
 /gps/pos/type Beam
 /gps/pos/shape Circle
+<<<<<<< HEAD
 /gps/pos/sigma_r 2.1233045 um
+=======
+/gps/pos/sigma_r 10 um
+>>>>>>> 7ee9b88fe1939067061c361e33f5cd86dd71a15e
 /gps/pos/centre 0 0. -85 cm
 /gps/ang/type iso
 /gps/ang/maxtheta 0.02 rad
@@ -19,9 +23,15 @@
 /Pepi/det/setM2Pitch 79 um
 /Pepi/det/setM2Aperture 10 um
 /Pepi/det/setAcquisitionType singlemask
+<<<<<<< HEAD
 /Pepi/det/setDetType 2COL
 /Pepi/det/setThreshold1 10 keV
 /Pepi/det/setThreshold2 30 keV
+=======
+/Pepi/det/setDetType 1COL
+/Pepi/det/setThreshold1 9 keV
+/Pepi/det/setThreshold2 20 keV
+>>>>>>> 7ee9b88fe1939067061c361e33f5cd86dd71a15e
 /Pepi/cont/loadConfig geometry_config.in
 /control/execute ../spectra/28kV.in
 /gps/hist/point 1.20E-03 228.37758882615893
@@ -78,7 +88,11 @@
 /gps/hist/point 2.67E-02 580330.3881123619
 /gps/hist/point 2.73E-02 372897.10469022597
 /gps/hist/point 2.77E-02 158936.66909831512
+<<<<<<< HEAD
 /Pepi/cont/setBaseName Frame_4
+=======
+/Pepi/cont/setBaseName Trans_20
+>>>>>>> 7ee9b88fe1939067061c361e33f5cd86dd71a15e
 /run/initialize
 /control/execute scorers.mac
 /score/create/boxMesh Mesh1
@@ -97,9 +111,13 @@
 /score/quantity/passageCellFlux protonCellFlux
 /score/filter/particle protonFilter proton
 /score/close
+<<<<<<< HEAD
 /Pepi/cont/beamOn 2000000000
 /run/geometryModified
 /run/geometryModified
 /Pepi/cont/beamOn 2000000000
+=======
+/Pepi/cont/beamOn 2500000000
+>>>>>>> 7ee9b88fe1939067061c361e33f5cd86dd71a15e
 /run/geometryModified
 /run/geometryModified
