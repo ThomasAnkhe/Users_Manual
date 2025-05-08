@@ -43,6 +43,8 @@ G4Material.hh
 ../include/G4Material.hh
 G4ThreeVector.hh
 ../include/G4ThreeVector.hh
+G4RotationMatrix.hh
+../include/G4RotationMatrix.hh
 globals.hh
 ../include/globals.hh
 tuple

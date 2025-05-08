@@ -14,8 +14,8 @@
 /Pepi/det/setSrcObjDistance 24 cm
 /Pepi/det/setObjectDetDistance 46 cm
 /Pepi/det/setMaskThickness 100 um
-/Pepi/det/setM2Pitch 110 um
-/Pepi/det/setM2Aperture 31.6 um
+/Pepi/det/setM2Pitch 79 um
+/Pepi/det/setM2Aperture 10 um
 #/Pepi/det/setRotAngle 90 deg
 /Pepi/det/setAcquisitionType conventional
 /Pepi/det/setDetType 2COL

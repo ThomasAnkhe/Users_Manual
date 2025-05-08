@@ -16,8 +16,8 @@
 /Pepi/det/setSrcObjDistance 24 cm
 /Pepi/det/setObjectDetDistance 46 cm
 /Pepi/det/setMaskThickness 100 um
-/Pepi/det/setM2Pitch 110 um
-/Pepi/det/setM2Aperture 31.6 um
+/Pepi/det/setM2Pitch 79 um
+/Pepi/det/setM2Aperture 10 um
 /Pepi/det/setAcquisitionType conventional
 /Pepi/det/setDetType 2COL
 /Pepi/det/setThreshold1 10 keV
@@ -97,7 +97,9 @@
 /score/quantity/passageCellFlux protonCellFlux
 /score/filter/particle protonFilter proton
 /score/close
-/Pepi/cont/beamOn 2500000000
+/Pepi/cont/beamOn 2000000000
 /run/geometryModified
 /run/geometryModified
-/score/dumpQuantityToFile Mesh1 dose dose_28kVInLine2_.out
+/Pepi/cont/beamOn 2000000000
+/run/geometryModified
+/run/geometryModified

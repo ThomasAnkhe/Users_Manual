@@ -1,4 +1,3 @@
-
 /run/numberOfThreads 4
 /control/verbose 0
 /control/saveHistory
@@ -16,7 +15,9 @@
 
 #/run/printProgress 1000000
 
-/Pepi/cont/beamOn 2500000000
-/score/dumpQuantityToFile Mesh1 dose dose_28kVInLine2_.out
+/Pepi/cont/beamOn 2000000000
+/Pepi/cont/beamOn 2000000000
+
+#/score/dumpQuantityToFile Mesh1 dose dose_28kVInLine2_.out
 #/score/dumpQuantityToFile Mesh2 dose dose_40_Rh.out
 #/score/dumpQuantityToFile Mesh2 protonCellFlux protonCellFlux_2.out
