@@ -886,17 +886,17 @@ if (fAcquisitionType=="doublemask")
 
  // Muscle Mimic
 
-fMuscleSolid = new G4Box("Cube", 6.05*cm/2, 6.2*cm/2, fObjSizeR);
-fMuscleLogical = new G4LogicalVolume(fMuscleSolid, fMuscleMaterial, "CubeLV");
-G4ThreeVector objectPositionCube = G4ThreeVector(0*mm, 0, fSourcePosZ+fSrcObjDistance);
-fMusclePhysical = new G4PVPlacement(0, objectPositionCube, fMuscleLogical, "Cube", fWorldLogical, false, 0, fCheckOverlaps);
+//fMuscleSolid = new G4Box("Cube", 6.05*cm/2, 6.2*cm/2, fObjSizeR);
+//fMuscleLogical = new G4LogicalVolume(fMuscleSolid, fMuscleMaterial, "CubeLV");
+//G4ThreeVector objectPositionCube = G4ThreeVector(0*mm, 0, fSourcePosZ+fSrcObjDistance);
+//fMusclePhysical = new G4PVPlacement(0, objectPositionCube, fMuscleLogical, "Cube", fWorldLogical, false, 0, fCheckOverlaps);
 
 // Wax
 
-fWaxInsertSolid = new G4Box("Wax", 5*cm/2, 5*cm/2, 7.25*mm/4);
-fWaxInsertLogical = new G4LogicalVolume(fWaxInsertSolid, fWaxInsertMaterial, "WaxLV");
-G4ThreeVector objectPositionWax = G4ThreeVector(0*mm, 0, 3.375*cm/4);
-fWaxInsertPhysical = new G4PVPlacement(0, objectPositionWax, fWaxInsertLogical, "Wax", fMuscleLogical, false, 0, fCheckOverlaps);
+//fWaxInsertSolid = new G4Box("Wax", 5*cm/2, 5*cm/2, 7.25*mm/4);
+//fWaxInsertLogical = new G4LogicalVolume(fWaxInsertSolid, fWaxInsertMaterial, "WaxLV");
+//G4ThreeVector objectPositionWax = G4ThreeVector(0*mm, 0, 3.375*cm/4);
+//fWaxInsertPhysical = new G4PVPlacement(0, objectPositionWax, fWaxInsertLogical, "Wax", fMuscleLogical, false, 0, fCheckOverlaps);
 
 // ------------------------------------------------------
 
@@ -932,29 +932,29 @@ G4RotationMatrix* rotMat4 =  new G4RotationMatrix();
 // Sphere
 fMicroSphereSolid = new G4Sphere("Sphere", 0, 1000*um/2, 0, 2*pi, 0, pi);
 fMicroSphereLogical = new G4LogicalVolume(fMicroSphereSolid, fMicroSphereMaterial, "SphereLV");
-G4ThreeVector objectPositionSphere = G4ThreeVector(1, 1*mm, 0);
-fMicroSpherePhysical = new G4PVPlacement(0, objectPositionSphere, fMicroSphereLogical, "Sphere", fWaxInsertLogical, false, 0, fCheckOverlaps);
+G4ThreeVector objectPositionSphere = G4ThreeVector(1, 1*mm, fSourcePosZ+fSrcObjDistance);
+fMicroSpherePhysical = new G4PVPlacement(0, objectPositionSphere, fMicroSphereLogical, "Sphere", fWorldLogical, false, 0, fCheckOverlaps);
 
 // Sphere1
 
 fMicroSphereSolid1 = new G4Sphere("Sphere1", 0, 750*um/2, 0, 2*pi, 0, pi);
 fMicroSphereLogical1 = new G4LogicalVolume(fMicroSphereSolid1, fMicroSphereMaterial, "SphereLV1");
-G4ThreeVector objectPositionSphere1 = G4ThreeVector(1, -1*mm, 0);
-fMicroSpherePhysical1 = new G4PVPlacement(0, objectPositionSphere1, fMicroSphereLogical1, "Sphere1", fWaxInsertLogical, false, 0, fCheckOverlaps);
+G4ThreeVector objectPositionSphere1 = G4ThreeVector(1, -1*mm, fSourcePosZ+fSrcObjDistance);
+fMicroSpherePhysical1 = new G4PVPlacement(0, objectPositionSphere1, fMicroSphereLogical1, "Sphere1", fWorldLogical, false, 0, fCheckOverlaps);
 
 // Sphere2
 
 fMicroSphereSolid2 = new G4Sphere("Sphere2", 0, 500*um/2, 0, 2*pi, 0, pi);
 fMicroSphereLogical2 = new G4LogicalVolume(fMicroSphereSolid2, fMicroSphereMaterial, "SphereLV2");
-G4ThreeVector objectPositionSphere2 = G4ThreeVector(-1*mm, -1*mm, 0);
-fMicroSpherePhysical2 = new G4PVPlacement(0, objectPositionSphere2, fMicroSphereLogical2, "Sphere2", fWaxInsertLogical, false, 0, fCheckOverlaps);
+G4ThreeVector objectPositionSphere2 = G4ThreeVector(-1*mm, -1*mm, fSourcePosZ+fSrcObjDistance);
+fMicroSpherePhysical2 = new G4PVPlacement(0, objectPositionSphere2, fMicroSphereLogical2, "Sphere2", fWorldLogical, false, 0, fCheckOverlaps);
 
 // Sphere3
 
 fMicroSphereSolid3 = new G4Sphere("Sphere3", 0, 250*um/2, 0, 2*pi, 0, pi);
 fMicroSphereLogical3 = new G4LogicalVolume(fMicroSphereSolid3, fMicroSphereMaterial, "SphereLV3");
-G4ThreeVector objectPositionSphere3 = G4ThreeVector(-1*mm, 1*mm, 0);
-fMicroSpherePhysical3 = new G4PVPlacement(0, objectPositionSphere3, fMicroSphereLogical3, "Sphere3", fWaxInsertLogical, false, 0, fCheckOverlaps);
+G4ThreeVector objectPositionSphere3 = G4ThreeVector(-1*mm, 1*mm, fSourcePosZ+fSrcObjDistance);
+fMicroSpherePhysical3 = new G4PVPlacement(0, objectPositionSphere3, fMicroSphereLogical3, "Sphere3", fWorldLogical, false, 0, fCheckOverlaps);
 
 
   // =================================================================
@@ -1027,13 +1027,13 @@ fIonCPhysical =  new G4PVPlacement(0,                    // No rotation.
 //                        VISUALIZATION OF THE PHANTOM
 // ================================================================================
   
-  G4VisAttributes* cubeVisAtt = new G4VisAttributes(G4Colour(0.6,0.8,1.0,0.5));
-  cubeVisAtt->SetForceSolid(true);
-  fMuscleLogical->SetVisAttributes(cubeVisAtt);
+  //G4VisAttributes* cubeVisAtt = new G4VisAttributes(G4Colour(0.6,0.8,1.0,0.5));
+  //cubeVisAtt->SetForceSolid(true);
+  //fMuscleLogical->SetVisAttributes(cubeVisAtt);
 
-  G4VisAttributes* waxVisAtt = new G4VisAttributes(G4Colour(1,0.75,0.79,0.5));
-  waxVisAtt->SetForceSolid(true);
-  fWaxInsertLogical->SetVisAttributes(waxVisAtt);
+  //G4VisAttributes* waxVisAtt = new G4VisAttributes(G4Colour(1,0.75,0.79,0.5));
+  //waxVisAtt->SetForceSolid(true);
+  //fWaxInsertLogical->SetVisAttributes(waxVisAtt);
 
   //G4VisAttributes* TubeVisAtt = new G4VisAttributes(G4Colour(1, 1, 1.0, 1.0));
   //TubeVisAtt->SetForceSolid(true);
@@ -1350,28 +1350,28 @@ void PepiDetectorConstruction::SetEIMovements(G4double trans, G4double dith, G4d
 // - Stepping and Dithering of the sample -:
 
   // - Object 1 - Phantom -
-  G4ThreeVector position1 = G4ThreeVector(fTrans + fDith, 0, fSourcePosZ+fSrcObjDistance);
-  Move("Cube", fMuscleLogical, fMusclePhysical, position1, fWorldLogical, rot);
+  //G4ThreeVector position1 = G4ThreeVector(fTrans + fDith, 0, fSourcePosZ+fSrcObjDistance);
+  //Move("Cube", fMuscleLogical, fMusclePhysical, position1, fWorldLogical, rot);
 
   // - Object 2 - Wax -
-  G4ThreeVector position2 = G4ThreeVector(fTrans + fDith, 0, 3.375*cm/4);
-  Move("Wax", fWaxInsertLogical, fWaxInsertPhysical, position2, fMuscleLogical, rot);
+  //G4ThreeVector position2 = G4ThreeVector(fTrans + fDith, 0, 3.375*cm/4);
+  //Move("Wax", fWaxInsertLogical, fWaxInsertPhysical, position2, fMuscleLogical, rot);
 
   // - Object 3 - Sphere -
-  G4ThreeVector position3 = G4ThreeVector(fTrans + fDith + 1*mm, 1*mm, 0);
-  Move("Sphere", fMicroSphereLogical, fMicroSpherePhysical, position3, fWaxInsertLogical, rot);
+  //G4ThreeVector position3 = G4ThreeVector(fTrans + fDith + 1*mm, 1*mm, 0);
+  //Move("Sphere", fMicroSphereLogical, fMicroSpherePhysical, position3, fWaxInsertLogical, rot);
 
   // - Object 4 - Sphere1 -
-  G4ThreeVector position4 = G4ThreeVector(fTrans + fDith + 1*mm, -1*mm, 0);
-  Move("Sphere1", fMicroSphereLogical1, fMicroSpherePhysical1, position4, fWaxInsertLogical, rot);
+  //G4ThreeVector position4 = G4ThreeVector(fTrans + fDith + 1*mm, -1*mm, 0);
+  //Move("Sphere1", fMicroSphereLogical1, fMicroSpherePhysical1, position4, fWaxInsertLogical, rot);
   
   // - Object 5 - Sphere2 -
-  G4ThreeVector position5 = G4ThreeVector(fTrans + fDith - 1*mm, -1*mm, 0);
-  Move("Sphere2", fMicroSphereLogical2, fMicroSpherePhysical2, position5, fWaxInsertLogical, rot);
+  //G4ThreeVector position5 = G4ThreeVector(fTrans + fDith - 1*mm, -1*mm, 0);
+  //Move("Sphere2", fMicroSphereLogical2, fMicroSpherePhysical2, position5, fWaxInsertLogical, rot);
 
   // - Object 6 - Sphere3 -
-  G4ThreeVector position6 = G4ThreeVector(fTrans + fDith - 1*mm, 1*mm, 0);
-  Move("Sphere3", fMicroSphereLogical3, fMicroSpherePhysical3, position6, fWaxInsertLogical, rot);
+  //G4ThreeVector position6 = G4ThreeVector(fTrans + fDith - 1*mm, 1*mm, 0);
+  //Move("Sphere3", fMicroSphereLogical3, fMicroSpherePhysical3, position6, fWaxInsertLogical, rot);
 
   // - Object 7 - Nylon Tube
 
