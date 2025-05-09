@@ -1317,24 +1317,24 @@ void PepiDetectorConstruction::SetEIMovements(G4double trans, G4double dith, G4d
   Move("Cube", fMuscleLogical, fMusclePhysical, position1, fWorldLogical);
 
   // - Object 2 - Wax -
-  G4ThreeVector position2 = G4ThreeVector(fTrans + fDith, 0, 3.375*cm);
-  Move("Wax", fWaxInsertLogical, fWaxInsertPhysical, position2, fMuscleLogical);
+  // G4ThreeVector position2 = G4ThreeVector(fTrans + fDith, 0, 3.375*cm);
+  // Move("Wax", fWaxInsertLogical, fWaxInsertPhysical, position2, fMuscleLogical);
 
   // - Object 3 - Sphere -
   G4ThreeVector position3 = G4ThreeVector(fTrans + fDith + 1*mm, 1*mm, 0);
-  Move("Sphere", fMicroSphereLogical, fMicroSpherePhysical, position3, fWaxInsertLogical);
+  Move("Sphere", fMicroSphereLogical, fMicroSpherePhysical, position3, fMuscleLogical);
 
   // - Object 4 - Sphere1 -
   G4ThreeVector position4 = G4ThreeVector(fTrans + fDith + 1*mm, -1*mm, 0);
-  Move("Sphere1", fMicroSphereLogical1, fMicroSpherePhysical1, position4, fWaxInsertLogical);
+  Move("Sphere1", fMicroSphereLogical1, fMicroSpherePhysical1, position4, fMuscleLogical);
   
   // - Object 5 - Sphere2 -
   G4ThreeVector position5 = G4ThreeVector(fTrans + fDith - 1*mm, -1*mm, 0);
-  Move("Sphere2", fMicroSphereLogical2, fMicroSpherePhysical2, position5, fWaxInsertLogical);
+  Move("Sphere2", fMicroSphereLogical2, fMicroSpherePhysical2, position5, fMuscleLogical);
 
   // - Object 6 - Sphere3 -
   G4ThreeVector position6 = G4ThreeVector(fTrans + fDith - 1*mm, 1*mm, 0);
-  Move("Sphere2", fMicroSphereLogical3, fMicroSpherePhysical3, position6, fWaxInsertLogical);
+  Move("Sphere2", fMicroSphereLogical3, fMicroSpherePhysical3, position6, fMuscleLogical);
 
   G4cout<<"Sample translated to " << (fTrans+fDith)/um << " um" <<G4endl;
   
