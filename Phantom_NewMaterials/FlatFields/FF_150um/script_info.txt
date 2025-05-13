@@ -1,0 +1,7 @@
+The .in scripts provide the inizialization parameters:
+- gps.in defines the general particle source parameters, i.e. source position, distribution, focal spot etc.
+- detmask_config.in the longitudinal positions of source, sample, masks and detector, and the masks' parameters
+- geometry_config.in the lateral position of the mask (first number - stepping) the lateral position of the sample (second number - dithering), the rotation of the sample (therd number - not yet implemented)
+the numbers in geometry_config.in are intended in um
+
+- the run.mac script provides a template to launch the simulation in 'batch' mode. At least 50M gammas are needed to achieve sufficient visibility
