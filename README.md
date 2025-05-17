@@ -29,5 +29,5 @@ We plan to include a section where users can learn how to implement **multithrea
 
 Additionally, future updates of the manual and source code will consider the integration of more robust and accurate **phase retrieval algorithms**, to enhance the quality of the reconstructed images.
 
-We are also exploring the development of a **graphical user interface (GUI)** that will allow users to configure and run simulations — as well as analyze results — without directly interacting with the Jupyter Notebook. This aims to streamline the workflow and make the tools more accessible and efficient for a broader range of users.
+We are also exploring the development of a **graphical user interface (GUI)** that will allow users to analyze results without directly interacting with the Jupyter Notebook (for no precise reason at all honestly).
 
