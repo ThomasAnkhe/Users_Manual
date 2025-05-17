@@ -1,7 +1,0 @@
-/home/j.guzmanm/Set_70cm_FF/10um/build/CMakeFiles/install/strip.dir
-/home/j.guzmanm/Set_70cm_FF/10um/build/CMakeFiles/install/local.dir
-/home/j.guzmanm/Set_70cm_FF/10um/build/CMakeFiles/install.dir
-/home/j.guzmanm/Set_70cm_FF/10um/build/CMakeFiles/list_install_components.dir
-/home/j.guzmanm/Set_70cm_FF/10um/build/CMakeFiles/rebuild_cache.dir
-/home/j.guzmanm/Set_70cm_FF/10um/build/CMakeFiles/edit_cache.dir
-/home/j.guzmanm/Set_70cm_FF/10um/build/CMakeFiles/pepi.dir
