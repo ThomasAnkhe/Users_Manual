@@ -23,7 +23,7 @@ All content is freely available and may be updated as new information or improve
    ```
 **2.** Read the Users_Manual.pdf available and try to follow the explanations using either the Phantom or the Tube source.
 
-## 🚧 Work in Progress
+## 🚧 Work in Progress:
 
 We plan to include a section where users can learn how to implement **multithreading** in their simulations, aiming to reduce the computational load of individual runs and improve performance.
 
