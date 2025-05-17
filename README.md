@@ -19,7 +19,7 @@ All content is freely available and may be updated as new information or improve
 
 **1.** Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/your-repo.git](https://github.com/ThomasAnkhe/Users_Manual.git
+   git clone https://github.com/ThomasAnkhe/Users_Manual.git
    ```
 **2.** Read the Users_Manual.pdf available and try to follow the explanations using either the Phantom or the Tube source.
 
