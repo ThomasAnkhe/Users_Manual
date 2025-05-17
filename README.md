@@ -23,7 +23,11 @@ All content is freely available and may be updated as new information or improve
    ```
 **2.** Read the Users_Manual.pdf available and try to follow the explanations using either the Phantom or the Tube source.
 
-## 🚧 Work in Progress:
-We plan to include a section where users can learn how to implement **multithreading** in their simulations, in order to reduce the computational load of individual runs and improve overall performance.
+## 🚧 Work in Progress
 
-Additionally, the integration of more robust and accurate phase retrieval algorithms is being considered for future updates of both the manual and the source code.
+We plan to include a section where users can learn how to implement **multithreading** in their simulations, aiming to reduce the computational load of individual runs and improve performance.
+
+Additionally, future updates of the manual and source code will consider the integration of more robust and accurate **phase retrieval algorithms**, to enhance the quality of the reconstructed images.
+
+We are also exploring the development of a **graphical user interface (GUI)** that will allow users to configure and run simulations — as well as analyze results — without directly interacting with the Jupyter Notebook. This aims to streamline the workflow and make the tools more accessible and efficient for a broader range of users.
+
