@@ -1,7 +1,0 @@
-/home/t.andrade/FlatFields/FF_50um/build/CMakeFiles/install/strip.dir
-/home/t.andrade/FlatFields/FF_50um/build/CMakeFiles/install/local.dir
-/home/t.andrade/FlatFields/FF_50um/build/CMakeFiles/install.dir
-/home/t.andrade/FlatFields/FF_50um/build/CMakeFiles/list_install_components.dir
-/home/t.andrade/FlatFields/FF_50um/build/CMakeFiles/rebuild_cache.dir
-/home/t.andrade/FlatFields/FF_50um/build/CMakeFiles/edit_cache.dir
-/home/t.andrade/FlatFields/FF_50um/build/CMakeFiles/pepi.dir

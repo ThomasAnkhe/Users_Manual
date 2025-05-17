@@ -1,7 +1,0 @@
-/home/rufuskty/repositories/Users_Manual/General_Source/CMakeFiles/install/strip.dir
-/home/rufuskty/repositories/Users_Manual/General_Source/CMakeFiles/install/local.dir
-/home/rufuskty/repositories/Users_Manual/General_Source/CMakeFiles/pepi.dir
-/home/rufuskty/repositories/Users_Manual/General_Source/CMakeFiles/edit_cache.dir
-/home/rufuskty/repositories/Users_Manual/General_Source/CMakeFiles/rebuild_cache.dir
-/home/rufuskty/repositories/Users_Manual/General_Source/CMakeFiles/install.dir
-/home/rufuskty/repositories/Users_Manual/General_Source/CMakeFiles/list_install_components.dir
