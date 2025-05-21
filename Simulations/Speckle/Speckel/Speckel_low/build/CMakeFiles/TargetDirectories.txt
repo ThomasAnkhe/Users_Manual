@@ -1,0 +1,7 @@
+/home/i.avilar/Original_Plaque/Original_Plaque/build/CMakeFiles/install/strip.dir
+/home/i.avilar/Original_Plaque/Original_Plaque/build/CMakeFiles/install/local.dir
+/home/i.avilar/Original_Plaque/Original_Plaque/build/CMakeFiles/install.dir
+/home/i.avilar/Original_Plaque/Original_Plaque/build/CMakeFiles/list_install_components.dir
+/home/i.avilar/Original_Plaque/Original_Plaque/build/CMakeFiles/rebuild_cache.dir
+/home/i.avilar/Original_Plaque/Original_Plaque/build/CMakeFiles/edit_cache.dir
+/home/i.avilar/Original_Plaque/Original_Plaque/build/CMakeFiles/pepi.dir

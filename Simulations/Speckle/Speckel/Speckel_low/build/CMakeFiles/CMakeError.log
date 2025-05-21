@@ -1,0 +1,90 @@
+Determining if the Q_WS_WIN exist failed with the following output:
+Change Dir: /home/i.avilar/Original_Plaque/Original_Plaque/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make cmTC_3a7d0/fast && /usr/bin/make -f CMakeFiles/cmTC_3a7d0.dir/build.make CMakeFiles/cmTC_3a7d0.dir/build
+make[1]: Entering directory '/home/i.avilar/Original_Plaque/Original_Plaque/build/CMakeFiles/CMakeTmp'
+Building CXX object CMakeFiles/cmTC_3a7d0.dir/CheckSymbolExists.cxx.o
+/usr/bin/c++   -I/usr/include/qt4   -o CMakeFiles/cmTC_3a7d0.dir/CheckSymbolExists.cxx.o -c /home/i.avilar/Original_Plaque/Original_Plaque/build/CMakeFiles/CMakeTmp/CheckSymbolExists.cxx
+/home/i.avilar/Original_Plaque/Original_Plaque/build/CMakeFiles/CMakeTmp/CheckSymbolExists.cxx: In function ‘int main(int, char**)’:
+/home/i.avilar/Original_Plaque/Original_Plaque/build/CMakeFiles/CMakeTmp/CheckSymbolExists.cxx:8:19: error: ‘Q_WS_WIN’ was not declared in this scope
+    8 |   return ((int*)(&Q_WS_WIN))[argc];
+      |                   ^~~~~~~~
+make[1]: *** [CMakeFiles/cmTC_3a7d0.dir/build.make:66: CMakeFiles/cmTC_3a7d0.dir/CheckSymbolExists.cxx.o] Error 1
+make[1]: Leaving directory '/home/i.avilar/Original_Plaque/Original_Plaque/build/CMakeFiles/CMakeTmp'
+make: *** [Makefile:121: cmTC_3a7d0/fast] Error 2
+
+
+File /home/i.avilar/Original_Plaque/Original_Plaque/build/CMakeFiles/CMakeTmp/CheckSymbolExists.cxx:
+/* */
+#include <QtCore/qglobal.h>
+
+int main(int argc, char** argv)
+{
+  (void)argv;
+#ifndef Q_WS_WIN
+  return ((int*)(&Q_WS_WIN))[argc];
+#else
+  (void)argc;
+  return 0;
+#endif
+}
+Determining if the Q_WS_QWS exist failed with the following output:
+Change Dir: /home/i.avilar/Original_Plaque/Original_Plaque/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make cmTC_fc767/fast && /usr/bin/make -f CMakeFiles/cmTC_fc767.dir/build.make CMakeFiles/cmTC_fc767.dir/build
+make[1]: Entering directory '/home/i.avilar/Original_Plaque/Original_Plaque/build/CMakeFiles/CMakeTmp'
+Building CXX object CMakeFiles/cmTC_fc767.dir/CheckSymbolExists.cxx.o
+/usr/bin/c++   -I/usr/include/qt4   -o CMakeFiles/cmTC_fc767.dir/CheckSymbolExists.cxx.o -c /home/i.avilar/Original_Plaque/Original_Plaque/build/CMakeFiles/CMakeTmp/CheckSymbolExists.cxx
+/home/i.avilar/Original_Plaque/Original_Plaque/build/CMakeFiles/CMakeTmp/CheckSymbolExists.cxx: In function ‘int main(int, char**)’:
+/home/i.avilar/Original_Plaque/Original_Plaque/build/CMakeFiles/CMakeTmp/CheckSymbolExists.cxx:8:19: error: ‘Q_WS_QWS’ was not declared in this scope
+    8 |   return ((int*)(&Q_WS_QWS))[argc];
+      |                   ^~~~~~~~
+make[1]: *** [CMakeFiles/cmTC_fc767.dir/build.make:66: CMakeFiles/cmTC_fc767.dir/CheckSymbolExists.cxx.o] Error 1
+make[1]: Leaving directory '/home/i.avilar/Original_Plaque/Original_Plaque/build/CMakeFiles/CMakeTmp'
+make: *** [Makefile:121: cmTC_fc767/fast] Error 2
+
+
+File /home/i.avilar/Original_Plaque/Original_Plaque/build/CMakeFiles/CMakeTmp/CheckSymbolExists.cxx:
+/* */
+#include <QtCore/qglobal.h>
+
+int main(int argc, char** argv)
+{
+  (void)argv;
+#ifndef Q_WS_QWS
+  return ((int*)(&Q_WS_QWS))[argc];
+#else
+  (void)argc;
+  return 0;
+#endif
+}
+Determining if the Q_WS_MAC exist failed with the following output:
+Change Dir: /home/i.avilar/Original_Plaque/Original_Plaque/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make cmTC_82430/fast && /usr/bin/make -f CMakeFiles/cmTC_82430.dir/build.make CMakeFiles/cmTC_82430.dir/build
+make[1]: Entering directory '/home/i.avilar/Original_Plaque/Original_Plaque/build/CMakeFiles/CMakeTmp'
+Building CXX object CMakeFiles/cmTC_82430.dir/CheckSymbolExists.cxx.o
+/usr/bin/c++   -I/usr/include/qt4   -o CMakeFiles/cmTC_82430.dir/CheckSymbolExists.cxx.o -c /home/i.avilar/Original_Plaque/Original_Plaque/build/CMakeFiles/CMakeTmp/CheckSymbolExists.cxx
+/home/i.avilar/Original_Plaque/Original_Plaque/build/CMakeFiles/CMakeTmp/CheckSymbolExists.cxx: In function ‘int main(int, char**)’:
+/home/i.avilar/Original_Plaque/Original_Plaque/build/CMakeFiles/CMakeTmp/CheckSymbolExists.cxx:8:19: error: ‘Q_WS_MAC’ was not declared in this scope
+    8 |   return ((int*)(&Q_WS_MAC))[argc];
+      |                   ^~~~~~~~
+make[1]: *** [CMakeFiles/cmTC_82430.dir/build.make:66: CMakeFiles/cmTC_82430.dir/CheckSymbolExists.cxx.o] Error 1
+make[1]: Leaving directory '/home/i.avilar/Original_Plaque/Original_Plaque/build/CMakeFiles/CMakeTmp'
+make: *** [Makefile:121: cmTC_82430/fast] Error 2
+
+
+File /home/i.avilar/Original_Plaque/Original_Plaque/build/CMakeFiles/CMakeTmp/CheckSymbolExists.cxx:
+/* */
+#include <QtCore/qglobal.h>
+
+int main(int argc, char** argv)
+{
+  (void)argv;
+#ifndef Q_WS_MAC
+  return ((int*)(&Q_WS_MAC))[argc];
+#else
+  (void)argc;
+  return 0;
+#endif
+}
