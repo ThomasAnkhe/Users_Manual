@@ -1,4 +1,4 @@
-# User's Manual — Phase Contrast Imaging with Geant4:
+# (Currently being edited) User's Manual — Phase Contrast Imaging with Geant4:
 
 This repository provides documentation and resources to facilitate the use of **Geant4** in the context of the **PEPI** (Photon-counting Edge-illumination Phase-contrast Imaging) project implementation. It is mainly intended for users and researchers working with **edge-illumination X-ray phase-contrast imaging (EI-XPCI)**, but any other modality of phase contrast can be achieved in this general code.
 
